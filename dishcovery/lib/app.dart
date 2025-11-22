@@ -1,3 +1,4 @@
+import 'package:dishcovery/screens/auth/login_view.dart';
 import 'package:flutter/material.dart';
 
 // landing screens
@@ -10,7 +11,7 @@ class App {
     switch (settings.name) {
       // default route
       case '/':
-        return MaterialPageRoute(builder: (_) => const LandingView());
+        return MaterialPageRoute(builder: (_) => const LoginView());
       case '/about':
         return MaterialPageRoute(builder: (_) => const AboutUsView());
 
