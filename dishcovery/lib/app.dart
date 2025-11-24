@@ -11,9 +11,11 @@ class App {
     switch (settings.name) {
       // default route
       case '/':
-        return MaterialPageRoute(builder: (_) => const LoginView());
+        return MaterialPageRoute(builder: (_) => const LandingView());
       case '/about':
         return MaterialPageRoute(builder: (_) => const AboutUsView());
+      case '/login':
+        return MaterialPageRoute(builder: (_) => const LoginView());
 
       // catches unknown routes
       default:
