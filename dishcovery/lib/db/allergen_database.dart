@@ -7,7 +7,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'string_list_converter.dart';
 
-part 'allergen_database.g.dart';
+part 'app_database.g.dart';
 
 /// Table to store user settings, including allergens
 class UserSettings extends Table {
