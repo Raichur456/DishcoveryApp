@@ -201,9 +201,9 @@ class UserSettingsCompanion extends UpdateCompanion<UserSetting> {
   }
 }
 
-abstract class _$AppDatabase extends GeneratedDatabase {
-  _$AppDatabase(QueryExecutor e) : super(e);
-  $AppDatabaseManager get managers => $AppDatabaseManager(this);
+abstract class _$AllergenDatabase extends GeneratedDatabase {
+  _$AllergenDatabase(QueryExecutor e) : super(e);
+  $AllergenDatabaseManager get managers => $AllergenDatabaseManager(this);
   late final $UserSettingsTable userSettings = $UserSettingsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
@@ -224,7 +224,7 @@ typedef $$UserSettingsTableUpdateCompanionBuilder =
     });
 
 class $$UserSettingsTableFilterComposer
-    extends Composer<_$AppDatabase, $UserSettingsTable> {
+    extends Composer<_$AllergenDatabase, $UserSettingsTable> {
   $$UserSettingsTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -245,7 +245,7 @@ class $$UserSettingsTableFilterComposer
 }
 
 class $$UserSettingsTableOrderingComposer
-    extends Composer<_$AppDatabase, $UserSettingsTable> {
+    extends Composer<_$AllergenDatabase, $UserSettingsTable> {
   $$UserSettingsTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -265,7 +265,7 @@ class $$UserSettingsTableOrderingComposer
 }
 
 class $$UserSettingsTableAnnotationComposer
-    extends Composer<_$AppDatabase, $UserSettingsTable> {
+    extends Composer<_$AllergenDatabase, $UserSettingsTable> {
   $$UserSettingsTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -283,7 +283,7 @@ class $$UserSettingsTableAnnotationComposer
 class $$UserSettingsTableTableManager
     extends
         RootTableManager<
-          _$AppDatabase,
+          _$AllergenDatabase,
           $UserSettingsTable,
           UserSetting,
           $$UserSettingsTableFilterComposer,
@@ -293,13 +293,15 @@ class $$UserSettingsTableTableManager
           $$UserSettingsTableUpdateCompanionBuilder,
           (
             UserSetting,
-            BaseReferences<_$AppDatabase, $UserSettingsTable, UserSetting>,
+            BaseReferences<_$AllergenDatabase, $UserSettingsTable, UserSetting>,
           ),
           UserSetting,
           PrefetchHooks Function()
         > {
-  $$UserSettingsTableTableManager(_$AppDatabase db, $UserSettingsTable table)
-    : super(
+  $$UserSettingsTableTableManager(
+    _$AllergenDatabase db,
+    $UserSettingsTable table,
+  ) : super(
         TableManagerState(
           db: db,
           table: table,
@@ -329,7 +331,7 @@ class $$UserSettingsTableTableManager
 
 typedef $$UserSettingsTableProcessedTableManager =
     ProcessedTableManager<
-      _$AppDatabase,
+      _$AllergenDatabase,
       $UserSettingsTable,
       UserSetting,
       $$UserSettingsTableFilterComposer,
@@ -339,15 +341,15 @@ typedef $$UserSettingsTableProcessedTableManager =
       $$UserSettingsTableUpdateCompanionBuilder,
       (
         UserSetting,
-        BaseReferences<_$AppDatabase, $UserSettingsTable, UserSetting>,
+        BaseReferences<_$AllergenDatabase, $UserSettingsTable, UserSetting>,
       ),
       UserSetting,
       PrefetchHooks Function()
     >;
 
-class $AppDatabaseManager {
-  final _$AppDatabase _db;
-  $AppDatabaseManager(this._db);
+class $AllergenDatabaseManager {
+  final _$AllergenDatabase _db;
+  $AllergenDatabaseManager(this._db);
   $$UserSettingsTableTableManager get userSettings =>
       $$UserSettingsTableTableManager(_db, _db.userSettings);
 }

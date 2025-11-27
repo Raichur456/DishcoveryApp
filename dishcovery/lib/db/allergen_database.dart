@@ -7,7 +7,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'string_list_converter.dart';
 
-part 'app_database.g.dart';
+part 'allergen_database.g.dart';
 
 /// Table to store user settings, including allergens
 class UserSettings extends Table {
@@ -19,8 +19,8 @@ class UserSettings extends Table {
 }
 
 @DriftDatabase(tables: [UserSettings])
-class AppDatabase extends _$AppDatabase {
-  AppDatabase() : super(_openConnection());
+class AllergenDatabase extends _$AllergenDatabase{
+  AllergenDatabase() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;

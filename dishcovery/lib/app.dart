@@ -1,4 +1,4 @@
-import 'package:dishcovery/db/app_database.dart';
+import 'package:dishcovery/db/allergen_database.dart';
 import 'package:dishcovery/screens/auth/login_view.dart';
 import 'package:dishcovery/screens/edit_allergens_page.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class App {
       case '/login':
         return MaterialPageRoute(builder: (_) => const LoginView());
       case '/allergens':
-        AppDatabase db = AppDatabase();
+        AllergenDatabase db = AllergenDatabase();
         return MaterialPageRoute(builder: (_) => EditAllergensPage(db: db));
 
       // catches unknown routes

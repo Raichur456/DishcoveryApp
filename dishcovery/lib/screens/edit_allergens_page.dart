@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:dishcovery/db/app_database.dart';
+import 'package:dishcovery/db/allergen_database.dart';
 
 class EditAllergensPage extends StatefulWidget {
 
   // Database we will store user allergens (required to run this view)
-  final AppDatabase db;
+  final AllergenDatabase db;
 
   const EditAllergensPage({
     super.key,
