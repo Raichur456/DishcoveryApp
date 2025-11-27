@@ -7,6 +7,10 @@ import 'package:flutter/material.dart';
 import 'screens/landing/landing_view.dart';
 import 'screens/landing/about_view.dart';
 
+//restaurant view
+import 'screens/restaurant_view.dart';
+
+
 /// handles navigation for the application
 class App {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -21,6 +25,8 @@ class App {
       case '/allergens':
         AllergenDatabase db = AllergenDatabase();
         return MaterialPageRoute(builder: (_) => EditAllergensPage(db: db));
+      case '/restaurants':
+        return MaterialPageRoute(builder: (_) => const RestaurantView());  
 
       // catches unknown routes
       default:
