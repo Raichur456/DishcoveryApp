@@ -1,4 +1,6 @@
+import 'package:dishcovery/db/app_database.dart';
 import 'package:dishcovery/screens/auth/login_view.dart';
+import 'package:dishcovery/screens/edit_allergens_page.dart';
 import 'package:flutter/material.dart';
 
 // landing screens
@@ -16,6 +18,9 @@ class App {
         return MaterialPageRoute(builder: (_) => const AboutUsView());
       case '/login':
         return MaterialPageRoute(builder: (_) => const LoginView());
+      case '/allergens':
+        AppDatabase db = AppDatabase();
+        return MaterialPageRoute(builder: (_) => EditAllergensPage(db: db));
 
       // catches unknown routes
       default:

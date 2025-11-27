@@ -51,6 +51,16 @@ class LandingView extends StatelessWidget {
 
               const SizedBox(height: 24),
 
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pushNamed(context, '/allergens'),
+                  child: const Text('Edit Allergens'),
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
               /// about us button
               TextButton(
                 onPressed: () => Navigator.pushNamed(context, '/about'),
