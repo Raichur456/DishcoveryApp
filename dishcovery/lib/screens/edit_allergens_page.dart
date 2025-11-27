@@ -73,13 +73,13 @@ class _EditAllergensPageState extends State<EditAllergensPage> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('✅ Allergens saved'),
+        content: Text('Allergens saved'),
         duration: Duration(seconds: 1),
       ),
     );
   }
 
-
+  // Builds the widget
   @override
   Widget build(BuildContext context) {
     if (_loading) {
