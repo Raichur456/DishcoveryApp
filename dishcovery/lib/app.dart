@@ -1,11 +1,13 @@
 import 'package:dishcovery/db/allergen_database.dart';
 import 'package:dishcovery/screens/auth/login_view.dart';
+import 'package:dishcovery/screens/auth/signup_view.dart';
 import 'package:dishcovery/screens/edit_allergens_page.dart';
 import 'package:flutter/material.dart';
 
 // landing screens
 import 'screens/landing/landing_view.dart';
 import 'screens/landing/about_view.dart';
+import 'screens/home_view.dart';
 
 /// handles navigation for the application
 class App {
@@ -18,6 +20,11 @@ class App {
         return MaterialPageRoute(builder: (_) => const AboutUsView());
       case '/login':
         return MaterialPageRoute(builder: (_) => const LoginView());
+      case '/home':
+        return MaterialPageRoute(builder: (_) => const HomeView());
+      // case '/favorites':
+      //   return MaterialPageRoute(builder: (_) => const FavoritesView());
+
       case '/allergens':
         AllergenDatabase db = AllergenDatabase();
         return MaterialPageRoute(builder: (_) => EditAllergensPage(db: db));

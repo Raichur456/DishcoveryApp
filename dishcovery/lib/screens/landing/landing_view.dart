@@ -61,6 +61,24 @@ class LandingView extends StatelessWidget {
 
               const SizedBox(height: 24),
 
+              ///
+
+              // temporary debug button to quickly open HomeView during development
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
+                  onPressed: () => Navigator.pushNamed(context, '/home'),
+                  child: const Text('Open Home (temporary)'),
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              ///
+
               /// about us button
               TextButton(
                 onPressed: () => Navigator.pushNamed(context, '/about'),
