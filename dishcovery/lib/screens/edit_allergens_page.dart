@@ -75,6 +75,7 @@ class _EditAllergensPageState extends State<EditAllergensPage> {
       const SnackBar(
         content: Text('Allergens saved'),
         duration: Duration(seconds: 1),
+        backgroundColor: Colors.green,
       ),
     );
   }
