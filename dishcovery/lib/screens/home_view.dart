@@ -18,7 +18,26 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Dishcovery')),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text('Dishcovery'),
+        actions: [
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.more_horiz),
+            onSelected: (value) {
+              if (value == 'signout') {
+                Navigator.pushReplacementNamed(context, '/login');
+              }
+            },
+            itemBuilder: (context) => [
+              const PopupMenuItem<String>(
+                value: 'signout',
+                child: Text('Sign Out'),
+              ),
+            ],
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Padding(
