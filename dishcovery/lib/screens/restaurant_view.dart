@@ -18,28 +18,33 @@ class RestaurantView extends StatelessWidget {
           final Restaurant restaurant = mockRestaurants[index];
 
           return Card(
-            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: ListTile(
               leading: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
                   restaurant.imageUrl,
-                  width: 60,
-                  height: 60,
+                  width: 56,
+                  height: 56,
                   fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => const Icon(Icons.restaurant),
                 ),
               ),
-              title: Text(
-                restaurant.name,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+              title: Text(restaurant.name),
               subtitle: Text(
-                '${restaurant.description}\n⭐ ${restaurant.rating.toStringAsFixed(1)}',
+                restaurant.description,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              isThreeLine: true,
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.star, size: 16, color: Colors.amber),
+                  Text(restaurant.rating.toStringAsFixed(1)),
+                ],
+              ),
               onTap: () {
+                // Open the DishView for this restaurant
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => DishView(restaurant: restaurant),

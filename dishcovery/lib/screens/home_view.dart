@@ -70,9 +70,10 @@ class _HomeViewState extends State<HomeView> {
                 return InkWell(
                   onTap: () {
                     // TODO: implement tap functionality
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Selected ${dish['name']}')),
-                    );
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(content: Text('Selected ${dish['name']}')),
+                    // );
+                    Navigator.pushNamed(context, '/restaurants');
                   },
                   child: Card(
                     elevation: 2,

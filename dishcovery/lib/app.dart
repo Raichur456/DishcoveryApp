@@ -39,7 +39,7 @@ class App {
       case '/allergens':
         AllergenDatabase db = AllergenDatabase();
         return MaterialPageRoute(builder: (_) => EditAllergensPage(db: db));
-
+      
       // catches unknown routes
       default:
         return MaterialPageRoute(
