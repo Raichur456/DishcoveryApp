@@ -1,28 +1,55 @@
 import 'package:flutter/material.dart';
 import '../models/restaurant.dart';
+
 import '../models/dish.dart';
+import '../utils/favorites_manager.dart';
 
-class DishView extends StatelessWidget {
+class DishView extends StatefulWidget {
   final Restaurant restaurant;
-
-  const DishView({
-    super.key,
-    required this.restaurant,
-  });
+  const DishView({Key? key, required this.restaurant}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final List<Dish> dishes = restaurant.dishes;
+  State<DishView> createState() => _DishViewState();
+}
 
+class _DishViewState extends State<DishView> {
+  @override
+  Widget build(BuildContext context) {
+    final List<Dish> dishes = widget.restaurant.dishes;
+    final isFav = FavoritesManager.instance.isFavorite(widget.restaurant);
     return Scaffold(
       appBar: AppBar(
-        title: Text(restaurant.name),
+        title: Row(
+          children: [
+            Expanded(
+              child: Text(
+                widget.restaurant.name,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            IconButton(
+              icon: Icon(
+                isFav ? Icons.favorite : Icons.favorite_border,
+                color: isFav ? Colors.red : null,
+              ),
+              tooltip: isFav ? 'Unlike' : 'Like',
+              onPressed: () {
+                setState(() {
+                  if (isFav) {
+                    FavoritesManager.instance.remove(widget.restaurant);
+                  } else {
+                    FavoritesManager.instance.add(widget.restaurant);
+                  }
+                });
+              },
+            ),
+          ],
+        ),
       ),
       body: ListView.builder(
         itemCount: dishes.length,
         itemBuilder: (context, index) {
           final Dish dish = dishes[index];
-
           return Card(
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: ListTile(

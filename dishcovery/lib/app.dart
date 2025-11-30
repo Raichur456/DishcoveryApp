@@ -1,3 +1,4 @@
+import 'screens/favorites_view.dart';
 import 'package:dishcovery/db/allergen_database.dart';
 import 'package:dishcovery/screens/edit_allergens_page.dart';
 import 'package:flutter/material.dart';
@@ -31,15 +32,15 @@ class App {
         return MaterialPageRoute(builder: (_) => const SignupView());
       case '/home':
         return MaterialPageRoute(builder: (_) => const HomeView());
-      // case '/favorites':
-      //   return MaterialPageRoute(builder: (_) => const FavoritesView());
+      case '/favorites':
+        return MaterialPageRoute(builder: (_) => const FavoritesView());
       case '/restaurants':
         return MaterialPageRoute(builder: (_) => const RestaurantView());
 
       case '/allergens':
         AllergenDatabase db = AllergenDatabase();
         return MaterialPageRoute(builder: (_) => EditAllergensPage(db: db));
-      
+
       // catches unknown routes
       default:
         return MaterialPageRoute(
