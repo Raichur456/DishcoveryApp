@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../config/mock_data.dart';
+import '../models/restaurant.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -8,15 +10,15 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final List<Map<String, String>> _dishes = [
-    {'name': 'title1', 'subtitle': 'subtitle1'},
-    {'name': 'title2', 'subtitle': 'subtitle2'},
-    {'name': 'title3', 'subtitle': 'subtitle3'},
-    {'name': 'title4', 'subtitle': 'subtitle4'},
-  ];
-
+  String _search = '';
+  bool _sortAsc = true;
   @override
   Widget build(BuildContext context) {
+    // Filter and sort restaurants
+    List<Restaurant> filtered = mockRestaurants
+        .where((r) => r.name.toLowerCase().contains(_search.toLowerCase()))
+        .toList();
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -42,17 +44,30 @@ class _HomeViewState extends State<HomeView> {
         children: [
           Padding(
             padding: const EdgeInsets.all(12.0),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search dishes or restaurants',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search restaurants',
+                      prefixIcon: const Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    onChanged: (v) {
+                      setState(() => _search = v);
+                    },
+                  ),
                 ),
-              ),
-              onSubmitted: (q) {
-                // TODO: implement search functionality
-              },
+                IconButton(
+                  icon: Icon(
+                    _sortAsc ? Icons.arrow_upward : Icons.arrow_downward,
+                  ),
+                  tooltip: _sortAsc ? 'Sort A-Z' : 'Sort Z-A',
+                  onPressed: () => setState(() => _sortAsc = !_sortAsc),
+                ),
+              ],
             ),
           ),
           Expanded(
@@ -64,15 +79,11 @@ class _HomeViewState extends State<HomeView> {
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
               ),
-              itemCount: _dishes.length,
+              itemCount: filtered.length,
               itemBuilder: (context, index) {
-                final dish = _dishes[index];
+                final Restaurant restaurant = filtered[index];
                 return InkWell(
                   onTap: () {
-                    // TODO: implement tap functionality
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   SnackBar(content: Text('Selected ${dish['name']}')),
-                    // );
                     Navigator.pushNamed(context, '/restaurants');
                   },
                   child: Card(
@@ -83,16 +94,21 @@ class _HomeViewState extends State<HomeView> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.fastfood, size: 48),
+                        if (restaurant.imageUrl.isNotEmpty)
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              restaurant.imageUrl,
+                              width: 80,
+                              height: 60,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         const SizedBox(height: 8),
                         Text(
-                          dish['name']!,
+                          restaurant.name,
                           style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          dish['subtitle']!,
-                          style: const TextStyle(color: Colors.grey),
+                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),
