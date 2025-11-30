@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../config/mock_data.dart';
 import '../models/restaurant.dart';
+import 'dish_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -84,7 +85,12 @@ class _HomeViewState extends State<HomeView> {
                 final Restaurant restaurant = filtered[index];
                 return InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/restaurants');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => DishView(restaurant: restaurant),
+                      ),
+                    );
                   },
                   child: Card(
                     elevation: 2,
@@ -102,6 +108,8 @@ class _HomeViewState extends State<HomeView> {
                               width: 80,
                               height: 60,
                               fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.broken_image, size: 60),
                             ),
                           ),
                         const SizedBox(height: 8),
