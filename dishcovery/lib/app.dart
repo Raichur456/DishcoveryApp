@@ -18,11 +18,11 @@ import 'screens/auth/signup_view.dart';
 
 // resturant view
 import 'screens/restaurant_view.dart';
-
+AllergenDatabase db = AllergenDatabase();
 /// handles navigation for the application
 class App {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    AllergenDatabase db = AllergenDatabase();
+    
     switch (settings.name) {
       // default route
       case '/':
