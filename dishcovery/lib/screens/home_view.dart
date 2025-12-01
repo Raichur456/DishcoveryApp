@@ -2,24 +2,133 @@ import 'package:flutter/material.dart';
 import '../config/mock_data.dart';
 import '../models/restaurant.dart';
 import 'dish_view.dart';
+import 'favorites_view.dart';
+import 'settings_view.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
+  int _selectedIndex = 0;
   String _search = '';
   bool _sortAsc = true;
-  @override
-  Widget build(BuildContext context) {
-    // Filter and sort restaurants
+
+  Widget _buildHomeTab() {
     List<Restaurant> filtered = mockRestaurants
         .where((r) => r.name.toLowerCase().contains(_search.toLowerCase()))
         .toList();
+    if (!_sortAsc) {
+      filtered.sort((a, b) => b.name.compareTo(a.name));
+    } else {
+      filtered.sort((a, b) => a.name.compareTo(b.name));
+    }
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search restaurants',
+                    prefixIcon: const Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onChanged: (v) {
+                    setState(() => _search = v);
+                  },
+                ),
+              ),
+              IconButton(
+                icon: Icon(
+                  _sortAsc ? Icons.arrow_upward : Icons.arrow_downward,
+                ),
+                tooltip: _sortAsc ? 'Sort A-Z' : 'Sort Z-A',
+                onPressed: () => setState(() => _sortAsc = !_sortAsc),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: GridView.builder(
+            padding: const EdgeInsets.all(12),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 3 / 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+            ),
+            itemCount: filtered.length,
+            itemBuilder: (context, index) {
+              final Restaurant restaurant = filtered[index];
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => DishView(restaurant: restaurant),
+                    ),
+                  );
+                },
+                child: Card(
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (restaurant.imageUrl.isNotEmpty)
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            restaurant.imageUrl,
+                            width: 80,
+                            height: 60,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const Icon(Icons.broken_image, size: 60),
+                          ),
+                        ),
+                      const SizedBox(height: 8),
+                      Text(
+                        restaurant.name,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
 
+  Widget _buildFavoritesTab() {
+    return const FavoritesView();
+  }
+
+  Widget _buildSettingsTab() {
+    return const SettingsView();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> tabs = [
+      _buildHomeTab(),
+      _buildFavoritesTab(),
+      _buildSettingsTab(),
+    ];
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -41,97 +150,25 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search restaurants',
-                      prefixIcon: const Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    onChanged: (v) {
-                      setState(() => _search = v);
-                    },
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(
-                    _sortAsc ? Icons.arrow_upward : Icons.arrow_downward,
-                  ),
-                  tooltip: _sortAsc ? 'Sort A-Z' : 'Sort Z-A',
-                  onPressed: () => setState(() => _sortAsc = !_sortAsc),
-                ),
-              ],
-            ),
+      body: SafeArea(child: tabs[_selectedIndex]),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
           ),
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(12),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 3 / 2,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-              ),
-              itemCount: filtered.length,
-              itemBuilder: (context, index) {
-                final Restaurant restaurant = filtered[index];
-                return InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => DishView(restaurant: restaurant),
-                      ),
-                    );
-                  },
-                  child: Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (restaurant.imageUrl.isNotEmpty)
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              restaurant.imageUrl,
-                              width: 80,
-                              height: 60,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.broken_image, size: 60),
-                            ),
-                          ),
-                        const SizedBox(height: 8),
-                        Text(
-                          restaurant.name,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.favorite),
-        onPressed: () {
-          Navigator.pushNamed(context, '/favorites');
-        },
       ),
     );
   }

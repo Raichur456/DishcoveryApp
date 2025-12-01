@@ -7,7 +7,7 @@ const mockRestaurants = <Restaurant>[
     name: 'Pizza Plaza',
     description: 'Wood-fired pizzas and Italian classics.',
     imageUrl:
-        'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80',
     rating: 4.7,
     dishes: [
       Dish(
@@ -258,7 +258,7 @@ const mockRestaurants = <Restaurant>[
     name: 'Curry Corner',
     description: 'Spicy and savory Indian curries.',
     imageUrl:
-        'https://images.pexels.com/photos/461382/pexels-photo-461382.jpeg',
+        'https://images.unsplash.com/photo-1504674900247-eca3a4b9b6b3?auto=format&fit=crop&w=800&q=80',
     rating: 4.5,
     dishes: [
       Dish(
@@ -288,7 +288,7 @@ const mockRestaurants = <Restaurant>[
     name: 'Taco Town',
     description: 'Tacos, burritos, and more.',
     imageUrl:
-        'https://images.pexels.com/photos/461382/pexels-photo-461382.jpeg',
+        'https://images.unsplash.com/photo-1600891963935-c9b6d7e6a6c9?auto=format&fit=crop&w=800&q=80',
     rating: 4.1,
     dishes: [
       Dish(
