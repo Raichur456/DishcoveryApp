@@ -1,3 +1,5 @@
+import 'package:dishcovery/screens/barcode_scanner_page.dart';
+
 import 'screens/favorites_view.dart';
 import 'package:dishcovery/db/allergen_database.dart';
 import 'package:dishcovery/screens/edit_allergens_page.dart';
@@ -20,6 +22,7 @@ import 'screens/restaurant_view.dart';
 /// handles navigation for the application
 class App {
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    AllergenDatabase db = AllergenDatabase();
     switch (settings.name) {
       // default route
       case '/':
@@ -38,8 +41,10 @@ class App {
         return MaterialPageRoute(builder: (_) => const RestaurantView());
 
       case '/allergens':
-        AllergenDatabase db = AllergenDatabase();
         return MaterialPageRoute(builder: (_) => EditAllergensPage(db: db));
+
+      case '/scan':
+        return MaterialPageRoute(builder: (_) => BarcodeScannerPage(db: db));
 
       // catches unknown routes
       default:

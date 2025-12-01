@@ -61,6 +61,16 @@ class LandingView extends StatelessWidget {
 
               const SizedBox(height: 24),
 
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pushNamed(context, '/scan'),
+                  child: const Text('Scan Product'),
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
               // temporary debug button to quickly open HomeView during development
               SizedBox(
                 width: double.infinity,
