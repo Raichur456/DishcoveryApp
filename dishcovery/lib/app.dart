@@ -18,11 +18,13 @@ import 'screens/auth/signup_view.dart';
 
 // resturant view
 import 'screens/restaurant_view.dart';
+import 'screens/settings_view.dart';
+
 AllergenDatabase db = AllergenDatabase();
+
 /// handles navigation for the application
 class App {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    
     switch (settings.name) {
       // default route
       case '/':
@@ -39,6 +41,9 @@ class App {
         return MaterialPageRoute(builder: (_) => const FavoritesView());
       case '/restaurants':
         return MaterialPageRoute(builder: (_) => const RestaurantView());
+
+      case '/settings':
+        return MaterialPageRoute(builder: (_) => const SettingsView());
 
       case '/allergens':
         return MaterialPageRoute(builder: (_) => EditAllergensPage(db: db));

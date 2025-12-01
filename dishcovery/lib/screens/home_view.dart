@@ -3,15 +3,18 @@ import '../config/mock_data.dart';
 import '../models/restaurant.dart';
 import '../services/yelp_service.dart';
 import 'dish_view.dart';
+import 'favorites_view.dart';
+import 'settings_view.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
+  int _selectedIndex = 0;
   String _search = '';
   bool _sortAsc = true;
 
