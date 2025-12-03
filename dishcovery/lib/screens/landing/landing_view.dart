@@ -49,26 +49,25 @@ class LandingView extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 24),
+              // const SizedBox(height: 24),
 
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => Navigator.pushNamed(context, '/allergens'),
-                  child: const Text('Edit Allergens'),
-                ),
-              ),
+              // SizedBox(
+              //   width: double.infinity,
+              //   child: ElevatedButton(
+              //     onPressed: () => Navigator.pushNamed(context, '/allergens'),
+              //     child: const Text('Edit Allergens'),
+              //   ),
+              // ),
 
-              const SizedBox(height: 24),
+              // const SizedBox(height: 24),
 
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => Navigator.pushNamed(context, '/scan'),
-                  child: const Text('Scan Product'),
-                ),
-              ),
-
+              // SizedBox(
+              //   width: double.infinity,
+              //   child: ElevatedButton(
+              //     onPressed: () => Navigator.pushNamed(context, '/scan'),
+              //     child: const Text('Scan Product'),
+              //   ),
+              // ),
               const SizedBox(height: 24),
 
               // temporary debug button to quickly open HomeView during development

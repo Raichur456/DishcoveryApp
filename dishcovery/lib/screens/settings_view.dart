@@ -1,4 +1,5 @@
 import 'package:dishcovery/db/allergen_database.dart';
+import 'package:dishcovery/screens/barcode_scanner_page.dart';
 import 'package:dishcovery/screens/edit_allergens_page.dart';
 import 'package:flutter/material.dart';
 import 'profile_view.dart';
@@ -40,7 +41,17 @@ class SettingsView extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => EditAllergensPage(db: db,)),
+                MaterialPageRoute(builder: (_) => EditAllergensPage(db: db)),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.qr_code_scanner),
+            title: const Text('Scan Product'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => BarcodeScannerPage(db: db)),
               );
             },
           ),
