@@ -6,10 +6,7 @@ import 'ingredient_result_page.dart';
 class BarcodeScannerPage extends StatefulWidget {
   final AllergenDatabase db;
 
-  const BarcodeScannerPage({
-    super.key,
-    required this.db,
-  });
+  const BarcodeScannerPage({super.key, required this.db});
 
   @override
   State<BarcodeScannerPage> createState() => _BarcodeScannerPageState();
@@ -34,10 +31,8 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => IngredientResultPage(
-                barcode: barcode,
-                db: widget.db,
-              ),
+              builder: (_) =>
+                  IngredientResultPage(barcode: barcode, db: widget.db),
             ),
           ).then((_) {
             setState(() => _scanned = false);

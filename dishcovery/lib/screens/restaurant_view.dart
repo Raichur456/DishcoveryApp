@@ -9,9 +9,7 @@ class RestaurantView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Restaurants'),
-      ),
+      appBar: AppBar(title: const Text('Restaurants')),
       body: ListView.builder(
         itemCount: mockRestaurants.length,
         itemBuilder: (context, index) {

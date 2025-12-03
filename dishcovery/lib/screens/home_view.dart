@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../config/mock_data.dart';
 import '../config/irl_mock_data.dart';
 import '../models/restaurant.dart';
-import '../services/yelp_service.dart';
+// import '../services/yelp_service.dart';
 import 'dish_view.dart';
 import 'favorites_view.dart';
 import 'settings_view.dart';

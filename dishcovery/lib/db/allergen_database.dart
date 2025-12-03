@@ -14,12 +14,11 @@ class UserSettings extends Table {
   IntColumn get id => integer().autoIncrement()();
 
   // Stores List<String> as JSON text in SQLite using StringListConverter
-  TextColumn get allergens =>
-      text().map(const StringListConverter())();
+  TextColumn get allergens => text().map(const StringListConverter())();
 }
 
 @DriftDatabase(tables: [UserSettings])
-class AllergenDatabase extends _$AllergenDatabase{
+class AllergenDatabase extends _$AllergenDatabase {
   AllergenDatabase() : super(_openConnection());
 
   @override
@@ -27,26 +26,25 @@ class AllergenDatabase extends _$AllergenDatabase{
 
   // ----- Convenience methods for allergens ----- //
 
-  /// B: Assures the user only has one row, and if it is empty, 
+  /// B: Assures the user only has one row, and if it is empty,
   ///     it creates one for them. We do this to avoid the case where we retrieve
-  ///     allergen data from the start before user has made any changes to their 
-  ///     account. 
-  /// E: N/A 
-  /// R: UserSetting - the row from the table we created above 
+  ///     allergen data from the start before user has made any changes to their
+  ///     account.
+  /// E: N/A
+  /// R: UserSetting - the row from the table we created above
   ///     (complete with an id and a TextColumn of user allergens)
   /// P: N/A
   Future<UserSetting> _getOrCreateSettingsRow() async {
     final rows = await select(userSettings).get();
     if (rows.isNotEmpty) return rows.first;
 
-    final id = await into(userSettings).insert(
-      UserSettingsCompanion(
-        allergens: const Value(<String>[]),
-      ),
-    );
+    final id = await into(
+      userSettings,
+    ).insert(UserSettingsCompanion(allergens: const Value(<String>[])));
 
-    return (await (select(userSettings)..where((t) => t.id.equals(id)))
-        .getSingle());
+    return (await (select(
+      userSettings,
+    )..where((t) => t.id.equals(id))).getSingle());
   }
 
   /// B: Returns the allergens in our database
@@ -73,7 +71,7 @@ class AllergenDatabase extends _$AllergenDatabase{
 }
 
 /// Lazily opens the database at a platform-specific path.
-/// Documentation for this section: 
+/// Documentation for this section:
 /// https://pub.dev/documentation/drift/latest/drift/LazyDatabase-class.html
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
