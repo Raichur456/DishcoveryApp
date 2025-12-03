@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../config/mock_data.dart';
+import '../config/irl_mock_data.dart';
 import '../models/restaurant.dart';
 import '../services/yelp_service.dart';
 import 'dish_view.dart';
@@ -35,9 +36,10 @@ class _HomeViewState extends State<HomeView> {
     });
 
     try {
-      final results = await YelpService.searchRestaurantsInSeattle(
-        term: term.trim(),
-      );
+      final results = irlMockRestaurants;
+      // await YelpService.searchRestaurantsInSeattle(
+      //   term: term.trim(),
+      // );
       setState(() {
         _restaurants = results;
         _loading = false;

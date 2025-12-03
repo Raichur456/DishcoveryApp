@@ -1,7 +1,7 @@
 import '../models/restaurant.dart';
 import '../models/dish.dart';
 
-const mockRestaurants = <Restaurant>[
+const irlMockRestaurants = <Restaurant>[
   // r1 – Pho Than Brothers (U District)
   Restaurant(
     id: 'r1',
@@ -421,4 +421,424 @@ const mockRestaurants = <Restaurant>[
       ),
     ],
   ),
+  // r11 – Kukai Ramen & Izakaya (Northgate – Japanese Ramen)
+Restaurant(
+  id: 'r11',
+  name: 'Kukai Ramen & Izakaya',
+  description: 'Popular ramen stop with rich broths and shareable izakaya plates.',
+  imageUrl:
+      'https://images.unsplash.com/photo-1606755962773-d3243f4b8f1d?auto=format&fit=crop&w=800&q=80',
+  rating: 4.5,
+  dishes: [
+    Dish(
+      id: 'd31',
+      restaurantId: 'r11',
+      name: 'Tonkotsu Ramen',
+      price: 15.50,
+      imageUrl:
+          'https://images.unsplash.com/photo-1606851091908-1d50f2f98d2e?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Gluten', 'Eggs', 'Soy'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd32',
+      restaurantId: 'r11',
+      name: 'Shoyu Ramen',
+      price: 14.50,
+      imageUrl:
+          'https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Gluten', 'Soy'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd33',
+      restaurantId: 'r11',
+      name: 'Chicken Karaage',
+      price: 8.99,
+      imageUrl:
+          'https://images.unsplash.com/photo-1598511726903-5da5e049a3cd?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Gluten', 'Eggs'],
+      safeForAllergens: [],
+    ),
+  ],
+),
+
+// r12 – Ba Bar (Capitol Hill – Vietnamese)
+Restaurant(
+  id: 'r12',
+  name: 'Ba Bar',
+  description: 'Modern Vietnamese street food and craft cocktails.',
+  imageUrl:
+      'https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=800&q=80',
+  rating: 4.6,
+  dishes: [
+    Dish(
+      id: 'd34',
+      restaurantId: 'r12',
+      name: 'Phở Gà Trắng',
+      price: 16.00,
+      imageUrl:
+          'https://images.unsplash.com/photo-1598514982842-2e0e12e51a9f?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Fish'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd35',
+      restaurantId: 'r12',
+      name: 'Bún Chả',
+      price: 18.50,
+      imageUrl:
+          'https://images.unsplash.com/photo-1603133872878-684f63c5f3f2?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Fish', 'Soy'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd36',
+      restaurantId: 'r12',
+      name: 'Crispy Imperial Rolls',
+      price: 10.00,
+      imageUrl:
+          'https://images.unsplash.com/photo-1604908176690-0adbdc995b42?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Gluten', 'Soy'],
+      safeForAllergens: [],
+    ),
+  ],
+),
+
+// r13 – Din Tai Fung (University Village – Taiwanese)
+Restaurant(
+  id: 'r13',
+  name: 'Din Tai Fung',
+  description: 'Famous dim sum and Taiwanese specialties.',
+  imageUrl:
+      'https://images.unsplash.com/photo-1585937421612-70a00805f3f8?auto=format&fit=crop&w=800&q=80',
+  rating: 4.7,
+  dishes: [
+    Dish(
+      id: 'd37',
+      restaurantId: 'r13',
+      name: 'Pork Xiao Long Bao',
+      price: 14.75,
+      imageUrl:
+          'https://images.unsplash.com/photo-1583500179011-5cbe47f82a1b?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Gluten'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd38',
+      restaurantId: 'r13',
+      name: 'Shrimp & Pork Dumplings',
+      price: 15.50,
+      imageUrl:
+          'https://images.unsplash.com/photo-1606755962765-5315f7c2c32b?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Gluten', 'Shellfish'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd39',
+      restaurantId: 'r13',
+      name: 'Dan Dan Noodles',
+      price: 13.25,
+      imageUrl:
+          'https://images.unsplash.com/photo-1625944527002-6fc73e2059d4?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Gluten', 'Sesame', 'Soy'],
+      safeForAllergens: [],
+    ),
+  ],
+),
+
+// r14 – Katsu Burger (Georgetown / Capitol Hill – Japanese-American)
+Restaurant(
+  id: 'r14',
+  name: 'Katsu Burger',
+  description: 'Giant panko-fried burgers with Japanese flair.',
+  imageUrl:
+      'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80',
+  rating: 4.4,
+  dishes: [
+    Dish(
+      id: 'd40',
+      restaurantId: 'r14',
+      name: 'Tokyo Classic Katsu Burger',
+      price: 14.99,
+      imageUrl:
+          'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Gluten', 'Eggs', 'Dairy'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd41',
+      restaurantId: 'r14',
+      name: 'Wabi Sabi Curry Burger',
+      price: 15.99,
+      imageUrl:
+          'https://images.unsplash.com/photo-1541557435984-1c79685a082e?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Gluten', 'Dairy', 'Eggs'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd42',
+      restaurantId: 'r14',
+      name: 'Furikake Fries',
+      price: 6.50,
+      imageUrl:
+          'https://images.unsplash.com/photo-1568051243853-76df1bca44e1?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Fish', 'Soy'],
+      safeForAllergens: [],
+    ),
+  ],
+),
+
+// r15 – Mamnoon (Capitol Hill – Middle Eastern)
+Restaurant(
+  id: 'r15',
+  name: 'Mamnoon',
+  description: 'Modern Lebanese & Syrian cuisine with bold spices.',
+  imageUrl:
+      'https://images.unsplash.com/photo-1603133892874-5d816fdae3c8?auto=format&fit=crop&w=800&q=80',
+  rating: 4.7,
+  dishes: [
+    Dish(
+      id: 'd43',
+      restaurantId: 'r15',
+      name: 'Chicken Shawarma',
+      price: 18.00,
+      imageUrl:
+          'https://images.unsplash.com/photo-1585903835302-9cb38a962f0a?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Gluten', 'Sesame'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd44',
+      restaurantId: 'r15',
+      name: 'Mezze Trio',
+      price: 14.50,
+      imageUrl:
+          'https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Sesame'],
+      safeForAllergens: ['Gluten-Free'],
+    ),
+    Dish(
+      id: 'd45',
+      restaurantId: 'r15',
+      name: 'Lamb Kebabs',
+      price: 19.75,
+      imageUrl:
+          'https://images.unsplash.com/photo-1555072956-7758afb20ea2?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: [],
+      safeForAllergens: ['Gluten-Free', 'Dairy-Free'],
+    ),
+  ],
+),
+
+// r16 – Tacos Chukís (Capitol Hill / South Lake Union – Mexican)
+Restaurant(
+  id: 'r16',
+  name: 'Tacos Chukís',
+  description: 'Seattle-loved mini tacos and al pastor with pineapple.',
+  imageUrl:
+      'https://images.unsplash.com/photo-1617196035113-98aacbb44e0c?auto=format&fit=crop&w=800&q=80',
+  rating: 4.6,
+  dishes: [
+    Dish(
+      id: 'd46',
+      restaurantId: 'r16',
+      name: 'Taco al Pastor',
+      price: 3.00,
+      imageUrl:
+          'https://images.unsplash.com/photo-1600340675641-699de8d5dc03?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: [],
+      safeForAllergens: ['Dairy-Free', 'Nut-Free', 'Gluten-Free'],
+    ),
+    Dish(
+      id: 'd47',
+      restaurantId: 'r16',
+      name: 'Taco de Pollo',
+      price: 3.00,
+      imageUrl:
+          'https://images.unsplash.com/photo-1612197322631-3b07d8f4a45e?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: [],
+      safeForAllergens: ['Dairy-Free', 'Nut-Free', 'Gluten-Free'],
+    ),
+    Dish(
+      id: 'd48',
+      restaurantId: 'r16',
+      name: 'Chukis Especial',
+      price: 4.50,
+      imageUrl:
+          'https://images.unsplash.com/photo-1608038509085-7bb9d5c0d48b?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Dairy'],
+      safeForAllergens: ['Nut-Free'],
+    ),
+  ],
+),
+
+// r17 – Seattle Fish Guys (Central District – Seafood)
+Restaurant(
+  id: 'r17',
+  name: 'Seattle Fish Guys',
+  description: 'Fresh seafood bowls and poke from a local fish market.',
+  imageUrl:
+      'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80',
+  rating: 4.8,
+  dishes: [
+    Dish(
+      id: 'd49',
+      restaurantId: 'r17',
+      name: 'Salmon Poke Bowl',
+      price: 16.99,
+      imageUrl:
+          'https://images.unsplash.com/photo-1577968897966-6781c2203f2b?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Fish', 'Soy', 'Sesame'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd50',
+      restaurantId: 'r17',
+      name: 'Ahi Tuna Bowl',
+      price: 17.99,
+      imageUrl:
+          'https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Fish', 'Soy', 'Sesame'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd51',
+      restaurantId: 'r17',
+      name: 'Seafood Chowder',
+      price: 9.99,
+      imageUrl:
+          'https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Dairy', 'Shellfish', 'Gluten'],
+      safeForAllergens: [],
+    ),
+  ],
+),
+
+// r18 – Marination (South Lake Union – Hawaiian-Korean)
+Restaurant(
+  id: 'r18',
+  name: 'Marination',
+  description: 'Hawaiian-Korean fusion tacos, sliders, and bowls.',
+  imageUrl:
+      'https://images.unsplash.com/photo-1608038509085-7bb9d5c0d48b?auto=format&fit=crop&w=800&q=80',
+  rating: 4.7,
+  dishes: [
+    Dish(
+      id: 'd52',
+      restaurantId: 'r18',
+      name: 'Kalbi Beef Taco',
+      price: 4.50,
+      imageUrl:
+          'https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Soy', 'Gluten'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd53',
+      restaurantId: 'r18',
+      name: 'Spam Sliders',
+      price: 8.00,
+      imageUrl:
+          'https://images.unsplash.com/photo-1585238342027-147adcc54d5d?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Gluten', 'Soy'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd54',
+      restaurantId: 'r18',
+      name: 'Kimchi Fried Rice',
+      price: 12.00,
+      imageUrl:
+          'https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Eggs', 'Soy', 'Sesame'],
+      safeForAllergens: [],
+    ),
+  ],
+),
+
+// r19 – Café Besalu (Ballard – French Bakery)
+Restaurant(
+  id: 'r19',
+  name: 'Café Besalu',
+  description: 'Legendary Ballard bakery known for perfect croissants.',
+  imageUrl:
+      'https://images.unsplash.com/photo-1600891963935-c9b6d7e6a6c9?auto=format&fit=crop&w=800&q=80',
+  rating: 4.8,
+  dishes: [
+    Dish(
+      id: 'd55',
+      restaurantId: 'r19',
+      name: 'Butter Croissant',
+      price: 4.50,
+      imageUrl:
+          'https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Gluten', 'Dairy'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd56',
+      restaurantId: 'r19',
+      name: 'Chocolate Croissant',
+      price: 5.00,
+      imageUrl:
+          'https://images.unsplash.com/photo-1617196035323-20593d3536bc?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Gluten', 'Dairy'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd57',
+      restaurantId: 'r19',
+      name: 'Quiche Lorraine',
+      price: 6.75,
+      imageUrl:
+          'https://images.unsplash.com/photo-1601000921344-87d87f71cb96?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Eggs', 'Dairy', 'Gluten'],
+      safeForAllergens: [],
+    ),
+  ],
+),
+
+// r20 – Tian Fu (Bellevue – Sichuan Chinese)
+Restaurant(
+  id: 'r20',
+  name: 'Tian Fu',
+  description: 'Authentic Sichuan cuisine with bold spices and heat.',
+  imageUrl:
+      'https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?auto=format&fit=crop&w=800&q=80',
+  rating: 4.4,
+  dishes: [
+    Dish(
+      id: 'd58',
+      restaurantId: 'r20',
+      name: 'Mapo Tofu',
+      price: 14.99,
+      imageUrl:
+          'https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Soy', 'Sesame'],
+      safeForAllergens: [],
+    ),
+    Dish(
+      id: 'd59',
+      restaurantId: 'r20',
+      name: 'Chongqing Spicy Chicken',
+      price: 16.99,
+      imageUrl:
+          'https://images.unsplash.com/photo-1504674900247-eca3a4b9b6b3?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Soy'],
+      safeForAllergens: ['Dairy-Free', 'Nut-Free'],
+    ),
+    Dish(
+      id: 'd60',
+      restaurantId: 'r20',
+      name: 'Dan Dan Noodles',
+      price: 13.99,
+      imageUrl:
+          'https://images.unsplash.com/photo-1625944527002-6fc73e2059d4?auto=format&fit=crop&w=800&q=80',
+      containsAllergens: ['Gluten', 'Sesame', 'Soy'],
+      safeForAllergens: [],
+    ),
+  ],
+),
+
 ];
