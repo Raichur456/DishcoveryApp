@@ -36,14 +36,14 @@ class App {
       case '/signup':
         return MaterialPageRoute(builder: (_) => const SignupView());
       case '/home':
-        return MaterialPageRoute(builder: (_) => const HomeView());
+        return MaterialPageRoute(builder: (_) =>  HomeView(db:db));
       case '/favorites':
         return MaterialPageRoute(builder: (_) => const FavoritesView());
       case '/restaurants':
         return MaterialPageRoute(builder: (_) => const RestaurantView());
 
       case '/settings':
-        return MaterialPageRoute(builder: (_) => const SettingsView());
+        return MaterialPageRoute(builder: (_) =>  SettingsView(db: db));
 
       case '/allergens':
         return MaterialPageRoute(builder: (_) => EditAllergensPage(db: db));

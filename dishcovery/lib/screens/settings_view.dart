@@ -1,9 +1,12 @@
+import 'package:dishcovery/db/allergen_database.dart';
+import 'package:dishcovery/screens/edit_allergens_page.dart';
 import 'package:flutter/material.dart';
 import 'profile_view.dart';
 import 'password_view.dart';
 
 class SettingsView extends StatelessWidget {
-  const SettingsView({super.key});
+  final AllergenDatabase db;
+  const SettingsView({super.key, required this.db});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,16 @@ class SettingsView extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => const PasswordView()),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.food_bank),
+            title: const Text('Edit Allergens'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => EditAllergensPage(db: db,)),
               );
             },
           ),

@@ -1,3 +1,5 @@
+import 'package:dishcovery/app.dart';
+import 'package:dishcovery/db/allergen_database.dart';
 import 'package:flutter/material.dart';
 import '../config/mock_data.dart';
 import '../config/irl_mock_data.dart';
@@ -8,7 +10,8 @@ import 'favorites_view.dart';
 import 'settings_view.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  final AllergenDatabase db;
+  const HomeView({super.key, required this.db});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -195,7 +198,7 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _buildSettingsTab() {
-    return const SettingsView();
+    return SettingsView(db:db);
   }
 
   @override
