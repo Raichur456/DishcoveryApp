@@ -33,22 +33,6 @@ class AllergenDatabase extends _$AllergenDatabase {
   @override
   int get schemaVersion => 2;
 
-  // @override
-  // MigrationStrategy get migration => MigrationStrategy(
-  //   onCreate: (Migrator m) async {
-  //     // Create all tables when the database is first created
-  //     await m.createAll();
-  //   },
-  //   onUpgrade: (Migrator m, int from, int to) async {
-  //     // Handle migrations between schema versions. When we bump the
-  //     // schema version to add `RestaurantSettings`, create that table for
-  //     // users coming from older versions.
-  //     if (from < 2) {
-  //       await m.createTable(restaurantSettings);
-  //     }
-  //   },
-  // );
-
   // Allergen helpers
 
   /// B: Assures the user only has one row, and if it is empty,

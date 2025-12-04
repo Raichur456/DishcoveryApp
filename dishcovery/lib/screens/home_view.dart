@@ -36,38 +36,38 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Future<void> _loadRestaurants({String term = ''}) async {
-  setState(() {
-    _loading = true;
-    _error = null;
-  });
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
 
-  List<Restaurant> results;
-  String? error;
+    List<Restaurant> results;
+    String? error;
 
-  try {
-    // results = await YelpService.searchRestaurantsInSeattle(term: term.trim());
-    results = irlMockRestaurants;
-  } catch (e) {
-    // Mock data if live API fails
-    results = mockRestaurants;
-    error =
-        'Could not load live Seattle restaurants. Showing sample data instead.';
+    try {
+      // results = await YelpService.searchRestaurantsInSeattle(term: term.trim());
+      results = irlMockRestaurants;
+    } catch (e) {
+      // Mock data if live API fails
+      results = mockRestaurants;
+      error =
+          'Could not load live Seattle restaurants. Showing sample data instead.';
+    }
+
+    // FavoritesManager loaded with restaurants saved in DB through favorites
+    await FavoritesManager.instance.init(
+      db: widget.db,
+      allRestaurants: results,
+    );
+
+    if (!mounted) return;
+
+    setState(() {
+      _restaurants = results;
+      _error = error;
+      _loading = false;
+    });
   }
-
-  // FavoritesManager loaded with restaurants saved in DB through favorites
-  await FavoritesManager.instance.init(
-    db: widget.db,
-    allRestaurants: results,
-  );
-
-  if (!mounted) return;
-
-  setState(() {
-    _restaurants = results;
-    _error = error;
-    _loading = false;
-  });
-}
 
   Widget _buildHomeTab() {
     List<Restaurant> filtered = _restaurants
@@ -125,15 +125,16 @@ class _HomeViewState extends State<HomeView> {
             padding: const EdgeInsets.all(12),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 3 / 2,
+              childAspectRatio: 1.0,
               crossAxisSpacing: 12,
               mainAxisSpacing: 12,
             ),
             itemCount: filtered.length,
             itemBuilder: (context, index) {
               final Restaurant restaurant = filtered[index];
-              final bool isFav =
-                  FavoritesManager.instance.isFavorite(restaurant);
+              final bool isFav = FavoritesManager.instance.isFavorite(
+                restaurant,
+              );
 
               return DraggableFavoriteRestaurantCard(
                 restaurant: restaurant,
