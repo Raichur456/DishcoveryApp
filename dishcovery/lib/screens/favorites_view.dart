@@ -4,7 +4,7 @@ import '../utils/favorites_manager.dart';
 import 'dish_view.dart';
 
 class FavoritesView extends StatefulWidget {
-  const FavoritesView({Key? key}) : super(key: key);
+  const FavoritesView({super.key});
 
   @override
   State<FavoritesView> createState() => _FavoritesViewState();
@@ -14,10 +14,50 @@ class _FavoritesViewState extends State<FavoritesView> {
   List<Restaurant> get _favoriteRestaurants =>
       FavoritesManager.instance.favorites;
 
+  final List<List<Restaurant>> _undoStack = [];
+  final List<List<Restaurant>> _redoStack = [];
+
+  void _saveStateForUndo() {
+    _undoStack.add(List<Restaurant>.from(_favoriteRestaurants));
+    _redoStack.clear();
+  }
+
+  void _undo() {
+    if (_undoStack.isNotEmpty) {
+      _redoStack.add(List<Restaurant>.from(_favoriteRestaurants));
+      final previous = _undoStack.removeLast();
+      FavoritesManager.instance.replaceAll(previous);
+      setState(() {});
+    }
+  }
+
+  void _redo() {
+    if (_redoStack.isNotEmpty) {
+      _undoStack.add(List<Restaurant>.from(_favoriteRestaurants));
+      final next = _redoStack.removeLast();
+      FavoritesManager.instance.replaceAll(next);
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Favorite Restaurants')),
+      appBar: AppBar(
+        title: const Text('Favorite Restaurants'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.undo),
+            tooltip: 'Undo',
+            onPressed: _undoStack.isNotEmpty ? _undo : null,
+          ),
+          IconButton(
+            icon: const Icon(Icons.redo),
+            tooltip: 'Redo',
+            onPressed: _redoStack.isNotEmpty ? _redo : null,
+          ),
+        ],
+      ),
       body: _favoriteRestaurants.isEmpty
           ? const Center(child: Text('No favorites yet.'))
           : ListView.builder(
@@ -50,6 +90,7 @@ class _FavoritesViewState extends State<FavoritesView> {
                     trailing: IconButton(
                       icon: const Icon(Icons.delete, color: Colors.red),
                       onPressed: () {
+                        _saveStateForUndo();
                         setState(() {
                           FavoritesManager.instance.remove(restaurant);
                         });

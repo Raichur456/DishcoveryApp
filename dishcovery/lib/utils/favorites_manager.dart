@@ -22,4 +22,11 @@ class FavoritesManager {
   void remove(Restaurant restaurant) {
     _favorites.removeWhere((r) => r.id == restaurant.id);
   }
+
+  /// Replace the entire favorites list. Useful for undo/redo operations.
+  void replaceAll(List<Restaurant> restaurants) {
+    _favorites
+      ..clear()
+      ..addAll(restaurants);
+  }
 }
