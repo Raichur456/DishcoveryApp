@@ -1,5 +1,5 @@
 import 'package:dishcovery/db/allergen_database.dart';
-import 'package:dishcovery/screens/barcode_scanner_page.dart';
+//import 'package:dishcovery/screens/barcode_scanner_page.dart';
 import 'package:dishcovery/screens/edit_allergens_page.dart';
 import 'package:flutter/material.dart';
 
