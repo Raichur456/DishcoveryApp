@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:dishcovery/db/allergen_database.dart'; 
+import 'package:dishcovery/db/allergen_database.dart';
 
 import '../models/restaurant.dart';
 import '../models/dish.dart';
-import '../utils/favorites_manager.dart'; 
+import '../utils/favorites_manager.dart';
 
 class DishView extends StatefulWidget {
   final Restaurant restaurant;
@@ -266,7 +266,7 @@ class _DishViewState extends State<DishView> {
   ) {
     final text = ('${r.name} ${r.description}').toLowerCase();
 
-    // Keywords we migt see in Yelp categories/description mapped to allergens.
+    // Keywords we might see in Yelp categories/description mapped to allergens.
     final Map<String, List<String>> triggers = {
       'seafood': ['fish', 'shellfish'],
       'oyster': ['fish', 'shellfish'],

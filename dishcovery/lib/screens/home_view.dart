@@ -145,7 +145,9 @@ class _HomeViewState extends State<HomeView> {
                     MaterialPageRoute(
                       builder: (_) => DishView(restaurant: restaurant),
                     ),
-                  );
+                  ).then((_) {
+                    setState(() {});
+                  });
                 },
               );
             },
