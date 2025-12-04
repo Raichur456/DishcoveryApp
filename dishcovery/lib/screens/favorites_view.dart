@@ -44,6 +44,8 @@ class _FavoritesViewState extends State<FavoritesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
         title: const Text('Favorite Restaurants'),
         actions: [
           IconButton(

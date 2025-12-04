@@ -23,8 +23,7 @@ class RestaurantSettings extends Table {
   IntColumn get id => integer().autoIncrement()();
 
   // Stores List<String> restaurant IDs as JSON in a single column
-  TextColumn get restaurantIds =>
-      text().map(const StringListConverter())();
+  TextColumn get restaurantIds => text().map(const StringListConverter())();
 }
 
 @DriftDatabase(tables: [UserSettings, RestaurantSettings])
@@ -33,6 +32,22 @@ class AllergenDatabase extends _$AllergenDatabase {
 
   @override
   int get schemaVersion => 2;
+
+  // @override
+  // MigrationStrategy get migration => MigrationStrategy(
+  //   onCreate: (Migrator m) async {
+  //     // Create all tables when the database is first created
+  //     await m.createAll();
+  //   },
+  //   onUpgrade: (Migrator m, int from, int to) async {
+  //     // Handle migrations between schema versions. When we bump the
+  //     // schema version to add `RestaurantSettings`, create that table for
+  //     // users coming from older versions.
+  //     if (from < 2) {
+  //       await m.createTable(restaurantSettings);
+  //     }
+  //   },
+  // );
 
   // Allergen helpers
 
@@ -94,9 +109,9 @@ class AllergenDatabase extends _$AllergenDatabase {
       RestaurantSettingsCompanion(restaurantIds: const Value(<String>[])),
     );
 
-    return (await (select(restaurantSettings)
-          ..where((t) => t.id.equals(id)))
-        .getSingle());
+    return (await (select(
+      restaurantSettings,
+    )..where((t) => t.id.equals(id))).getSingle());
   }
 
   /// B: Returns the list of saved restaurant IDs (e.g., favorites)
@@ -116,8 +131,7 @@ class AllergenDatabase extends _$AllergenDatabase {
   /// P: List<String> ids - the new list of restaurant IDs to persist
   Future<void> setRestaurantIds(List<String> ids) async {
     final row = await _getOrCreateRestaurantSettingsRow();
-    await (update(restaurantSettings)..where((t) => t.id.equals(row.id)))
-        .write(
+    await (update(restaurantSettings)..where((t) => t.id.equals(row.id))).write(
       RestaurantSettingsCompanion(restaurantIds: Value(ids)),
     );
   }

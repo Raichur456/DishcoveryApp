@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/restaurant.dart';
 
-/// This class implements a Draggable Restaurant. Used to easily add 
-/// restaurants to and remove from favorites list, if wanting to do 
+/// This class implements a Draggable Restaurant. Used to easily add
+/// restaurants to and remove from favorites list, if wanting to do
 /// many at a time.
 class DraggableFavoriteRestaurantCard extends StatefulWidget {
   // The restaurant being represented
@@ -32,7 +32,6 @@ class DraggableFavoriteRestaurantCard extends StatefulWidget {
 
 class _DraggableFavoriteRestaurantCardState
     extends State<DraggableFavoriteRestaurantCard> {
-
   // Current drag
   double _dx = 0;
 
@@ -48,11 +47,9 @@ class _DraggableFavoriteRestaurantCardState
   /// What happens when user lets go of the card
   void _onPanEnd(DragEndDetails details) {
     final bool shouldFavorite =
-
         // Case: drag to the right
         (_dx > _trigger) && !widget.isFavorite;
     final bool shouldUnfavorite =
-
         // Case: drag to the left
         (_dx < -_trigger) && widget.isFavorite;
 
@@ -76,7 +73,7 @@ class _DraggableFavoriteRestaurantCardState
           child: Container(
             alignment: Alignment.centerRight,
             padding: const EdgeInsets.only(right: 12),
-            color: widget.isFavorite ? Colors.green[50] : Colors.pink[50],
+            // color: widget.isFavorite ? Colors.green[50] : Colors.pink[50],
           ),
         ),
 
@@ -127,8 +124,9 @@ class _DraggableFavoriteRestaurantCardState
                               widget.isFavorite
                                   ? Icons.favorite
                                   : Icons.favorite_border,
-                              color:
-                                  widget.isFavorite ? Colors.red : Colors.grey,
+                              color: widget.isFavorite
+                                  ? Colors.red
+                                  : Colors.grey,
                               size: 18,
                             ),
                           ],
