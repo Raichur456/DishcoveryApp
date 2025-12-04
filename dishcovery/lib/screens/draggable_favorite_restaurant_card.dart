@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import '../models/restaurant.dart';
 
+/// This class implements a Draggable Restaurant. Used to easily add 
+/// restaurants to and remove from favorites list, if wanting to do 
+/// many at a time.
 class DraggableFavoriteRestaurantCard extends StatefulWidget {
+  // The restaurant being represented
   final Restaurant restaurant;
+
+  // Whether or not the restaurant is favorited
   final bool isFavorite;
+
+  // What should happen if favorite is toggled (does the opposite of current state)
   final VoidCallback onToggleFavorite;
+
+  // What should happen on tap
   final VoidCallback onTap;
 
   const DraggableFavoriteRestaurantCard({
@@ -35,6 +45,7 @@ class _DraggableFavoriteRestaurantCardState
     });
   }
 
+  /// What happens when user lets go of the card
   void _onPanEnd(DragEndDetails details) {
     final bool shouldFavorite =
 
@@ -102,6 +113,7 @@ class _DraggableFavoriteRestaurantCardState
                           children: [
                             Expanded(
                               child: Text(
+                                // Name of the restaurant
                                 r.name,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -111,6 +123,7 @@ class _DraggableFavoriteRestaurantCardState
                               ),
                             ),
                             Icon(
+                              // Displays different Icon + color depending on if favorited
                               widget.isFavorite
                                   ? Icons.favorite
                                   : Icons.favorite_border,
@@ -122,6 +135,7 @@ class _DraggableFavoriteRestaurantCardState
                         ),
                         const SizedBox(height: 4),
                         Text(
+                          // Restaurant description
                           r.description,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -129,6 +143,7 @@ class _DraggableFavoriteRestaurantCardState
                         ),
                         const SizedBox(height: 4),
                         Row(
+                          // Restaurant review stuff to be displayed
                           children: [
                             const Icon(
                               Icons.star,
