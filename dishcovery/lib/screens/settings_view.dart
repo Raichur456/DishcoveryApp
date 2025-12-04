@@ -66,19 +66,19 @@ class SettingsView extends StatelessWidget {
           );
         },
       ),
-      ListTile(
-        leading: const Icon(Icons.qr_code_scanner),
-        title: const Text('Scan a Barcode'),
-        subtitle: const Text('Check if an item is safe for you'),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => BarcodeScannerPage(db: db),
-            ),
-          );
-        },
-      ),
+      // ListTile(
+      //   leading: const Icon(Icons.qr_code_scanner),
+      //   title: const Text('Scan a Barcode'),
+      //   subtitle: const Text('Check if an item is safe for you'),
+      //   onTap: () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //         builder: (_) => BarcodeScannerPage(db: db),
+      //       ),
+      //     );
+      //   },
+      // ),
       const Divider(),
       ListTile(
         leading: const Icon(Icons.logout, color: Colors.red),
