@@ -65,7 +65,7 @@ class _DraggableFavoriteRestaurantCardState
           child: Container(
             alignment: Alignment.centerRight,
             padding: const EdgeInsets.only(right: 12),
-            color: widget.isFavorite ? Colors.pink[50] : Colors.green[50],
+            color: widget.isFavorite ? Colors.green[50] : Colors.pink[50],
           ),
         ),
 
