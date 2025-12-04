@@ -61,7 +61,6 @@ class _DraggableFavoriteRestaurantCardState
 
     return Stack(
       children: [
-        // Background hint with heart, visible while dragging
         Positioned.fill(
           child: Container(
             alignment: Alignment.centerRight,
