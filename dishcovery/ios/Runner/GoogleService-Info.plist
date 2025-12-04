@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>688735371092-n3vuksqnu6gheurum8raiern69ieebi6.apps.googleusercontent.com</string>
+	<string>688735371092-qcrvqpv3bn9ql7hmq8q88j35lsbg53tk.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.688735371092-n3vuksqnu6gheurum8raiern69ieebi6</string>
+	<string>com.googleusercontent.apps.688735371092-qcrvqpv3bn9ql7hmq8q88j35lsbg53tk</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBITKdCbs23jCGMTmXb5D_ytbsgiGs2q_M</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.gururaj.dishcovery</string>
+	<string>com.gururajkrishna.dishcovery</string>
 	<key>PROJECT_ID</key>
 	<string>dishcovery-be4a2</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:688735371092:ios:e3b9314287bca50b7852c1</string>
+	<string>1:688735371092:ios:98a576a482c719427852c1</string>
 </dict>
 </plist>

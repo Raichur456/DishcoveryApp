@@ -22,6 +22,8 @@ import 'screens/auth/signup_view.dart';
 import 'screens/restaurant_view.dart';
 import 'screens/settings_view.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
 AllergenDatabase db = AllergenDatabase();
 
 /// handles navigation for the application
@@ -38,7 +40,10 @@ class App {
       case '/signup':
         return MaterialPageRoute(builder: (_) => const SignupView());
       case '/home':
-        return MaterialPageRoute(builder: (_) =>  HomeView(db:db));
+  if (FirebaseAuth.instance.currentUser == null) {
+    return MaterialPageRoute(builder: (_) => const LoginView());
+  }
+  return MaterialPageRoute(builder: (_) => HomeView(db: db));
       case '/favorites':
         return MaterialPageRoute(builder: (_) => const FavoritesView());
       case '/restaurants':
@@ -53,7 +58,10 @@ class App {
       case '/scan':
         return MaterialPageRoute(builder: (_) => BarcodeScannerPage(db: db));
         case '/profile':
-  return MaterialPageRoute(builder: (_) => ProfileView());
+  if (FirebaseAuth.instance.currentUser == null) {
+    return MaterialPageRoute(builder: (_) => const LoginView());
+  }
+  return MaterialPageRoute(builder: (_) => const ProfileView());
 
 
       // catches unknown routes

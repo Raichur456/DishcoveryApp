@@ -1,6 +1,6 @@
 import 'package:dishcovery/db/allergen_database.dart';
 import 'package:flutter/material.dart';
-
+import '../services/firebase_auth_service.dart';
 import '../config/mock_data.dart';
 import '../config/irl_mock_data.dart';
 import '../models/restaurant.dart';
@@ -187,9 +187,28 @@ class _HomeViewState extends State<HomeView> {
     ];
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text('Dishcovery'),
-      ),
+  automaticallyImplyLeading: false,
+  title: const Text('Dishcovery'),
+  actions: [
+    IconButton(
+      icon: const Icon(Icons.logout),
+      tooltip: 'Sign out',
+      onPressed: () async {
+        // 1. Sign out from Firebase
+        await FirebaseAuthService().signOut();
+
+        // 2. Go back to login and clear history
+        if (!context.mounted) return;
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          '/login',
+          (route) => false,
+        );
+      },
+    ),
+  ],
+),
+      
       body: SafeArea(child: tabs[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,

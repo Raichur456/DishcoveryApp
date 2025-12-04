@@ -59,11 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBITKdCbs23jCGMTmXb5D_ytbsgiGs2q_M',
-    appId: '1:688735371092:ios:e3b9314287bca50b7852c1',
+    appId: '1:688735371092:ios:98a576a482c719427852c1',
     messagingSenderId: '688735371092',
     projectId: 'dishcovery-be4a2',
     storageBucket: 'dishcovery-be4a2.firebasestorage.app',
-    iosClientId: '688735371092-n3vuksqnu6gheurum8raiern69ieebi6.apps.googleusercontent.com',
-    iosBundleId: 'com.gururaj.dishcovery',
+    iosClientId: '688735371092-qcrvqpv3bn9ql7hmq8q88j35lsbg53tk.apps.googleusercontent.com',
+    iosBundleId: 'com.gururajkrishna.dishcovery',
   );
+
 }
