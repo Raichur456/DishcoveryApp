@@ -201,15 +201,232 @@ class UserSettingsCompanion extends UpdateCompanion<UserSetting> {
   }
 }
 
+class $RestaurantSettingsTable extends RestaurantSettings
+    with TableInfo<$RestaurantSettingsTable, RestaurantSetting> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $RestaurantSettingsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<List<String>, String>
+  restaurantIds =
+      GeneratedColumn<String>(
+        'restaurant_ids',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<List<String>>(
+        $RestaurantSettingsTable.$converterrestaurantIds,
+      );
+  @override
+  List<GeneratedColumn> get $columns => [id, restaurantIds];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'restaurant_settings';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<RestaurantSetting> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  RestaurantSetting map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RestaurantSetting(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      restaurantIds: $RestaurantSettingsTable.$converterrestaurantIds.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}restaurant_ids'],
+        )!,
+      ),
+    );
+  }
+
+  @override
+  $RestaurantSettingsTable createAlias(String alias) {
+    return $RestaurantSettingsTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<List<String>, String> $converterrestaurantIds =
+      const StringListConverter();
+}
+
+class RestaurantSetting extends DataClass
+    implements Insertable<RestaurantSetting> {
+  final int id;
+  final List<String> restaurantIds;
+  const RestaurantSetting({required this.id, required this.restaurantIds});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    {
+      map['restaurant_ids'] = Variable<String>(
+        $RestaurantSettingsTable.$converterrestaurantIds.toSql(restaurantIds),
+      );
+    }
+    return map;
+  }
+
+  RestaurantSettingsCompanion toCompanion(bool nullToAbsent) {
+    return RestaurantSettingsCompanion(
+      id: Value(id),
+      restaurantIds: Value(restaurantIds),
+    );
+  }
+
+  factory RestaurantSetting.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return RestaurantSetting(
+      id: serializer.fromJson<int>(json['id']),
+      restaurantIds: serializer.fromJson<List<String>>(json['restaurantIds']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'restaurantIds': serializer.toJson<List<String>>(restaurantIds),
+    };
+  }
+
+  RestaurantSetting copyWith({int? id, List<String>? restaurantIds}) =>
+      RestaurantSetting(
+        id: id ?? this.id,
+        restaurantIds: restaurantIds ?? this.restaurantIds,
+      );
+  RestaurantSetting copyWithCompanion(RestaurantSettingsCompanion data) {
+    return RestaurantSetting(
+      id: data.id.present ? data.id.value : this.id,
+      restaurantIds: data.restaurantIds.present
+          ? data.restaurantIds.value
+          : this.restaurantIds,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RestaurantSetting(')
+          ..write('id: $id, ')
+          ..write('restaurantIds: $restaurantIds')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, restaurantIds);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is RestaurantSetting &&
+          other.id == this.id &&
+          other.restaurantIds == this.restaurantIds);
+}
+
+class RestaurantSettingsCompanion extends UpdateCompanion<RestaurantSetting> {
+  final Value<int> id;
+  final Value<List<String>> restaurantIds;
+  const RestaurantSettingsCompanion({
+    this.id = const Value.absent(),
+    this.restaurantIds = const Value.absent(),
+  });
+  RestaurantSettingsCompanion.insert({
+    this.id = const Value.absent(),
+    required List<String> restaurantIds,
+  }) : restaurantIds = Value(restaurantIds);
+  static Insertable<RestaurantSetting> custom({
+    Expression<int>? id,
+    Expression<String>? restaurantIds,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (restaurantIds != null) 'restaurant_ids': restaurantIds,
+    });
+  }
+
+  RestaurantSettingsCompanion copyWith({
+    Value<int>? id,
+    Value<List<String>>? restaurantIds,
+  }) {
+    return RestaurantSettingsCompanion(
+      id: id ?? this.id,
+      restaurantIds: restaurantIds ?? this.restaurantIds,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (restaurantIds.present) {
+      map['restaurant_ids'] = Variable<String>(
+        $RestaurantSettingsTable.$converterrestaurantIds.toSql(
+          restaurantIds.value,
+        ),
+      );
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RestaurantSettingsCompanion(')
+          ..write('id: $id, ')
+          ..write('restaurantIds: $restaurantIds')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AllergenDatabase extends GeneratedDatabase {
   _$AllergenDatabase(QueryExecutor e) : super(e);
   $AllergenDatabaseManager get managers => $AllergenDatabaseManager(this);
   late final $UserSettingsTable userSettings = $UserSettingsTable(this);
+  late final $RestaurantSettingsTable restaurantSettings =
+      $RestaurantSettingsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [userSettings];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    userSettings,
+    restaurantSettings,
+  ];
 }
 
 typedef $$UserSettingsTableCreateCompanionBuilder =
@@ -346,10 +563,166 @@ typedef $$UserSettingsTableProcessedTableManager =
       UserSetting,
       PrefetchHooks Function()
     >;
+typedef $$RestaurantSettingsTableCreateCompanionBuilder =
+    RestaurantSettingsCompanion Function({
+      Value<int> id,
+      required List<String> restaurantIds,
+    });
+typedef $$RestaurantSettingsTableUpdateCompanionBuilder =
+    RestaurantSettingsCompanion Function({
+      Value<int> id,
+      Value<List<String>> restaurantIds,
+    });
+
+class $$RestaurantSettingsTableFilterComposer
+    extends Composer<_$AllergenDatabase, $RestaurantSettingsTable> {
+  $$RestaurantSettingsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<List<String>, List<String>, String>
+  get restaurantIds => $composableBuilder(
+    column: $table.restaurantIds,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+}
+
+class $$RestaurantSettingsTableOrderingComposer
+    extends Composer<_$AllergenDatabase, $RestaurantSettingsTable> {
+  $$RestaurantSettingsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get restaurantIds => $composableBuilder(
+    column: $table.restaurantIds,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$RestaurantSettingsTableAnnotationComposer
+    extends Composer<_$AllergenDatabase, $RestaurantSettingsTable> {
+  $$RestaurantSettingsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<List<String>, String> get restaurantIds =>
+      $composableBuilder(
+        column: $table.restaurantIds,
+        builder: (column) => column,
+      );
+}
+
+class $$RestaurantSettingsTableTableManager
+    extends
+        RootTableManager<
+          _$AllergenDatabase,
+          $RestaurantSettingsTable,
+          RestaurantSetting,
+          $$RestaurantSettingsTableFilterComposer,
+          $$RestaurantSettingsTableOrderingComposer,
+          $$RestaurantSettingsTableAnnotationComposer,
+          $$RestaurantSettingsTableCreateCompanionBuilder,
+          $$RestaurantSettingsTableUpdateCompanionBuilder,
+          (
+            RestaurantSetting,
+            BaseReferences<
+              _$AllergenDatabase,
+              $RestaurantSettingsTable,
+              RestaurantSetting
+            >,
+          ),
+          RestaurantSetting,
+          PrefetchHooks Function()
+        > {
+  $$RestaurantSettingsTableTableManager(
+    _$AllergenDatabase db,
+    $RestaurantSettingsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$RestaurantSettingsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$RestaurantSettingsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$RestaurantSettingsTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<List<String>> restaurantIds = const Value.absent(),
+              }) => RestaurantSettingsCompanion(
+                id: id,
+                restaurantIds: restaurantIds,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required List<String> restaurantIds,
+              }) => RestaurantSettingsCompanion.insert(
+                id: id,
+                restaurantIds: restaurantIds,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$RestaurantSettingsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AllergenDatabase,
+      $RestaurantSettingsTable,
+      RestaurantSetting,
+      $$RestaurantSettingsTableFilterComposer,
+      $$RestaurantSettingsTableOrderingComposer,
+      $$RestaurantSettingsTableAnnotationComposer,
+      $$RestaurantSettingsTableCreateCompanionBuilder,
+      $$RestaurantSettingsTableUpdateCompanionBuilder,
+      (
+        RestaurantSetting,
+        BaseReferences<
+          _$AllergenDatabase,
+          $RestaurantSettingsTable,
+          RestaurantSetting
+        >,
+      ),
+      RestaurantSetting,
+      PrefetchHooks Function()
+    >;
 
 class $AllergenDatabaseManager {
   final _$AllergenDatabase _db;
   $AllergenDatabaseManager(this._db);
   $$UserSettingsTableTableManager get userSettings =>
       $$UserSettingsTableTableManager(_db, _db.userSettings);
+  $$RestaurantSettingsTableTableManager get restaurantSettings =>
+      $$RestaurantSettingsTableTableManager(_db, _db.restaurantSettings);
 }

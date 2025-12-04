@@ -36,30 +36,38 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Future<void> _loadRestaurants({String term = ''}) async {
-    setState(() {
-      _loading = true;
-      _error = null;
-    });
+  setState(() {
+    _loading = true;
+    _error = null;
+  });
 
-    try {
-      final results = irlMockRestaurants;
-      // await YelpService.searchRestaurantsInSeattle(
-      //   term: term.trim(),
-      // );
-      setState(() {
-        _restaurants = results;
-        _loading = false;
-      });
-    } catch (e) {
-      // Fallback: use mock data if live API fails
-      setState(() {
-        _restaurants = mockRestaurants;
-        _loading = false;
-        _error =
-            'Could not load live Seattle restaurants. Showing sample data instead.';
-      });
-    }
+  List<Restaurant> results;
+  String? error;
+
+  try {
+    // results = await YelpService.searchRestaurantsInSeattle(term: term.trim());
+    results = irlMockRestaurants;
+  } catch (e) {
+    // Mock data if live API fails
+    results = mockRestaurants;
+    error =
+        'Could not load live Seattle restaurants. Showing sample data instead.';
   }
+
+  // FavoritesManager loaded with restaurants saved in DB through favorites
+  await FavoritesManager.instance.init(
+    db: widget.db,
+    allRestaurants: results,
+  );
+
+  if (!mounted) return;
+
+  setState(() {
+    _restaurants = results;
+    _error = error;
+    _loading = false;
+  });
+}
 
   Widget _buildHomeTab() {
     List<Restaurant> filtered = _restaurants
