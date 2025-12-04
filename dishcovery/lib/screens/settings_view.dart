@@ -1,5 +1,5 @@
 import 'package:dishcovery/db/allergen_database.dart';
-import 'package:dishcovery/screens/barcode_scanner_page.dart';
+//import 'package:dishcovery/screens/barcode_scanner_page.dart';
 import 'package:dishcovery/screens/edit_allergens_page.dart';
 import 'package:flutter/material.dart';
 
@@ -15,13 +15,9 @@ class SettingsView extends StatelessWidget {
     final auth = FirebaseAuthService();
     await auth.signOut();
 
-    // Clear navigation stack and go back to login screen
+    // Clear navigation stack and go back to landing page
     if (context.mounted) {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        '/login',
-        (route) => false,
-      );
+      Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
     }
   }
 
@@ -35,9 +31,7 @@ class SettingsView extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (_) => const ProfileView(),
-            ),
+            MaterialPageRoute(builder: (_) => const ProfileView()),
           );
         },
       ),
@@ -47,9 +41,7 @@ class SettingsView extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (_) => const PasswordView(),
-            ),
+            MaterialPageRoute(builder: (_) => const PasswordView()),
           );
         },
       ),
@@ -60,9 +52,7 @@ class SettingsView extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (_) => EditAllergensPage(db: db),
-            ),
+            MaterialPageRoute(builder: (_) => EditAllergensPage(db: db)),
           );
         },
       ),
@@ -82,16 +72,16 @@ class SettingsView extends StatelessWidget {
       const Divider(),
       ListTile(
         leading: const Icon(Icons.logout, color: Colors.red),
-        title: const Text(
-          'Sign Out',
-          style: TextStyle(color: Colors.red),
-        ),
+        title: const Text('Sign Out', style: TextStyle(color: Colors.red)),
         onTap: () => _signOut(context),
       ),
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(
+        title: const Text('Settings'),
+        automaticallyImplyLeading: false,
+      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           final list = ListView.separated(
