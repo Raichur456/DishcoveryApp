@@ -1,4 +1,4 @@
-package com.example.dishcovery
+package com.gururaj.dishcovery
 
 import io.flutter.embedding.android.FlutterActivity
 

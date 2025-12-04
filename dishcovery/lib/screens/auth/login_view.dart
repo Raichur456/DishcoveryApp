@@ -16,13 +16,27 @@ class _LoginViewState extends State<LoginView> {
 
   final authService = FirebaseAuthService();
 
+ @override
+  void initState() {
+    super.initState();
+
+    // If user already signed in from before, skip login screen
+    final user = authService.currentUser;
+    if (user != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        Navigator.pushReplacementNamed(context, '/home');
+      });
+    }
+  }
   Future<void> _login() async {
-    if (!_formKey.currentState!.validate()) return;
+final form = _formKey.currentState;
+if (form == null || !form.validate()) return;
 
     setState(() => _loading = true);
     try {
       await authService.signIn(_email.text.trim(), _password.text.trim());
-      if (mounted) Navigator.pushReplacementNamed(context, '/home');
+      if (mounted) Navigator.pushReplacementNamed(context, '/profile');
     } on Exception catch (e) {
       setState(() => _error = e.toString());
     } finally {

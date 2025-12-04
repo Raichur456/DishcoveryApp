@@ -1,29 +1,32 @@
-import 'package:dishcovery/services/firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:flutter/material.dart';
-import 'app.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'app.dart';                       // your App.generateRoute
+import 'db/allergen_database.dart';      // AllergenDatabase
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-  runApp(const DishcoveryApp());
+  final db = AllergenDatabase();
+
+  runApp(MyApp(db: db));
 }
 
-/// Root of the Dishcovery Application
-class DishcoveryApp extends StatelessWidget {
-  const DishcoveryApp({super.key});
+class MyApp extends StatelessWidget {
+  final AllergenDatabase db;
+  const MyApp({super.key, required this.db});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Dishcovery',
       debugShowCheckedModeBanner: false,
-
-      // route-based navigation
       onGenerateRoute: App.generateRoute,
-      initialRoute: '/',
+      initialRoute: '/',   // or use home: AuthGate(db: db) if you switch to an auth gate
     );
   }
 }

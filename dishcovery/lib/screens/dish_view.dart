@@ -8,7 +8,7 @@ import '../utils/favorites_manager.dart';
 class DishView extends StatefulWidget {
   final Restaurant restaurant;
 
-  const DishView({Key? key, required this.restaurant}) : super(key: key);
+  const DishView({super.key, required this.restaurant});
 
   @override
   State<DishView> createState() => _DishViewState();
@@ -164,10 +164,9 @@ class _DishViewState extends State<DishView> {
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  if (dish.price != null)
-                                    Text(
-                                      '\$${dish.price!.toStringAsFixed(2)}',
-                                    ),
+                                  Text(
+                                    '\$${dish.price.toStringAsFixed(2)}',
+                                  ),
                                   const SizedBox(height: 4),
                                   if (dish.containsAllergens.isNotEmpty)
                                     Text(

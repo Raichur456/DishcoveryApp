@@ -1,4 +1,5 @@
 import 'package:dishcovery/screens/barcode_scanner_page.dart';
+import 'package:dishcovery/screens/profile_view.dart';
 
 import 'screens/favorites_view.dart';
 import 'package:dishcovery/db/allergen_database.dart';
@@ -15,6 +16,7 @@ import 'screens/home_view.dart';
 // auth screens
 import 'screens/auth/login_view.dart';
 import 'screens/auth/signup_view.dart';
+//profile view
 
 // resturant view
 import 'screens/restaurant_view.dart';
@@ -50,6 +52,9 @@ class App {
 
       case '/scan':
         return MaterialPageRoute(builder: (_) => BarcodeScannerPage(db: db));
+        case '/profile':
+  return MaterialPageRoute(builder: (_) => ProfileView());
+
 
       // catches unknown routes
       default:
