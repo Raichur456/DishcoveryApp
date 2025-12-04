@@ -1,13 +1,16 @@
 import 'package:dishcovery/app.dart';
 import 'package:dishcovery/db/allergen_database.dart';
 import 'package:flutter/material.dart';
+
 import '../config/mock_data.dart';
 import '../config/irl_mock_data.dart';
 import '../models/restaurant.dart';
-// import '../services/yelp_service.dart';
+import '../utils/favorites_manager.dart';
 import 'dish_view.dart';
 import 'favorites_view.dart';
 import 'settings_view.dart';
+import 'barcode_scanner_page.dart';
+import 'draggable_favorite_restaurant_card.dart';
 
 class HomeView extends StatefulWidget {
   final AllergenDatabase db;
@@ -121,70 +124,31 @@ class _HomeViewState extends State<HomeView> {
             itemCount: filtered.length,
             itemBuilder: (context, index) {
               final Restaurant restaurant = filtered[index];
-              return InkWell(
+              final bool isFav =
+                  FavoritesManager.instance.isFavorite(restaurant);
+
+              return DraggableFavoriteRestaurantCard(
+                restaurant: restaurant,
+                isFavorite: isFav,
+                onToggleFavorite: () {
+                  setState(() {
+                    if (isFav) {
+                      FavoritesManager.instance.remove(restaurant);
+                    } else {
+                      FavoritesManager.instance.add(restaurant);
+                    }
+                  });
+                },
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (_) => DishView(restaurant: restaurant),
                     ),
-                  );
+                  ).then((_) {
+                    setState(() {});
+                  });
                 },
-                child: Card(
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
-                        child: Image.network(
-                          restaurant.imageUrl,
-                          fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) =>
-                              const Icon(Icons.restaurant),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              restaurant.name,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              restaurant.description,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(fontSize: 12),
-                            ),
-                            const SizedBox(height: 4),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.star,
-                                  size: 16,
-                                  color: Colors.amber,
-                                ),
-                                const SizedBox(width: 4),
-                                Text(restaurant.rating.toStringAsFixed(1)),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               );
             },
           ),
@@ -198,7 +162,11 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _buildSettingsTab() {
-    return SettingsView(db:db);
+    return SettingsView(db: widget.db);
+  }
+
+  Widget _buildBarcodeTab() {
+    return BarcodeScannerPage(db: widget.db);
   }
 
   @override
@@ -207,6 +175,7 @@ class _HomeViewState extends State<HomeView> {
       _buildHomeTab(),
       _buildFavoritesTab(),
       _buildSettingsTab(),
+      _buildBarcodeTab(),
     ];
     return Scaffold(
       appBar: AppBar(
@@ -229,6 +198,7 @@ class _HomeViewState extends State<HomeView> {
       body: SafeArea(child: tabs[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
+        type: BottomNavigationBarType.fixed,
         onTap: (index) {
           setState(() {
             _selectedIndex = index;
@@ -243,6 +213,10 @@ class _HomeViewState extends State<HomeView> {
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.qr_code_scanner),
+            label: 'Scan',
           ),
         ],
       ),
