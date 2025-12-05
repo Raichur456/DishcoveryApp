@@ -43,3 +43,23 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# --- Firebase & Google Service Secrets ---
+# Android
+android/app/google-services.json
+
+# iOS
+ios/Runner/GoogleService-Info.plist
+
+# FlutterFire auto-generated file
+lib/firebase_options.dart
+
+# Backup copies
+ios/Runner/GoogleService-Info*.plist
+android/app/google-services*.json
+firebase.json
+
+# Anything in /macos or /web that contains API keys
+macos/firebase_app_id_file.json
+web/firebase-messaging-sw.js
+
