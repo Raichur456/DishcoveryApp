@@ -1,6 +1,11 @@
 import '../models/restaurant.dart';
 import '../models/dish.dart';
 
+/* This list represents a list of restaurants that we use for our mock data in Dishcovery.
+*  Each restaurant has an id, name, description, imageUrl, rating, and list of dishes associated
+*  with it. Data was generated with AI assistance from ChatGPT. I gave it the prompt to fill in images
+*  that were royalty-free.
+*/
 const irlMockRestaurants = <Restaurant>[
   // r1 – Pho Than Brothers (U District)
   Restaurant(
