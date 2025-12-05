@@ -2,6 +2,11 @@ import 'package:dishcovery/db/allergen_database.dart';
 import 'package:flutter/material.dart';
 import '../providers/food_api.dart';
 
+/* This file represents the ingredients results page. This gets pushes into view 
+* after the barcode scanner scans an item. It will either return the ingredients listed
+* along with whether or not the food is safe to consume, or nothing if no food assocaited
+* with the barcode number is found.
+*/
 class IngredientResultPage extends StatefulWidget {
   final String barcode;
   final AllergenDatabase db;
@@ -25,6 +30,7 @@ class _IngredientResultPageState extends State<IngredientResultPage> {
     _futureData = _loadData();
   }
 
+  // Loads data from the food api
   Future<_IngredientAndAllergenData> _loadData() async {
     final ingredientsText = await FoodApi.fetchIngredients(widget.barcode);
     final userAllergens = await widget.db.getAllergens(); 
@@ -33,6 +39,8 @@ class _IngredientResultPageState extends State<IngredientResultPage> {
         ? <String>[]
         : _parseIngredients(ingredientsText);
 
+    // Returns an ingredient's information, most of which was 
+    // fetched from the Food API
     return _IngredientAndAllergenData(
       barcode: widget.barcode,
       ingredientsText: ingredientsText ?? '',
@@ -45,6 +53,9 @@ class _IngredientResultPageState extends State<IngredientResultPage> {
   bool _ingredientHasAllergen(String ingredient, List<String> userAllergens) {
     final ingLower = ingredient.toLowerCase();
 
+    // We populate with allergens associated with what we mapped 
+    // specific keys to be. For example, if "fish" is a selected allergen,
+    // it populates this list with "tuna" and "salmon" 
     final List<String> patterns = [];
 
     for (final rawLabel in userAllergens) {
@@ -53,27 +64,40 @@ class _IngredientResultPageState extends State<IngredientResultPage> {
       patterns.addAll(keywords.map((k) => k.toLowerCase().trim()));
     }
 
+    // Runs a comparison to see if any of our listed allergens are within the ingredients
+    // of the food item. 
     return patterns.any((keyword) => ingLower.contains(keyword));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      // App bar that says Ingredients for (barcode number) are being shown
       appBar: AppBar(
         title: Text('Ingredients for ${widget.barcode}'),
       ),
       body: FutureBuilder<_IngredientAndAllergenData>(
         future: _futureData,
+
+        // Builds page around the snapshot, our fetched IngredientAndAllergenData; 
+        // manages and reacts to state of asynchronous operation
         builder: (context, snapshot) {
+
+          // Case: snapshot waiting (so not fetched yet)
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
+          // Case: snapshot error (error fetching the IngredientAndAllergenData)
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           }
 
+          // Else: returns snapshot data
           final data = snapshot.data;
+
+          // Case: no ingredients associated with the barcode/dish
           if (data == null || data.ingredients.isEmpty) {
             return const Center(child: Text('No ingredient data found.'));
           }
@@ -85,6 +109,7 @@ class _IngredientResultPageState extends State<IngredientResultPage> {
               .where((ing) => _ingredientHasAllergen(ing, allergens))
               .toList();
 
+          // Else: Lists out if food can be eaten or not
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -207,6 +232,10 @@ const Map<String, List<String>> allergenKeywordMap = {
   'fish': ['tuna', 'salmon'],
 };
 
+// This class represents the ingredient and allergen data of the fetched food item. 
+// It contains the barcode, (which we scanned from barcode_scanner_page), a text
+// representation of ingredients (if applicable), a list representation of 
+// its ingredients, and the user allergens. 
 class _IngredientAndAllergenData {
   final String barcode;
   final String ingredientsText;
