@@ -38,6 +38,13 @@ class _DraggableFavoriteRestaurantCardState
   // Drag needed to toggle favorite/unfavorite
   static const double _trigger = 10;
 
+  // B: How the drag changes as the user moves their finger. 
+  // details.delta.dx signifies that the widget only takes into 
+  // consideration the dragging that happens in the horizontal 
+  // direction while discarding any other types of dragging. 
+  // E: N/A
+  // R: N/A
+  // P: DragUpdateDetails details - details regarding the user dragging the widget
   void _onPanUpdate(DragUpdateDetails details) {
     setState(() {
       _dx += details.delta.dx;
