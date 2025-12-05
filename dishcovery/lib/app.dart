@@ -1,9 +1,7 @@
-import 'package:dishcovery/screens/barcode_scanner_page.dart';
-import 'package:dishcovery/screens/profile_view.dart';
-
-import 'screens/favorites_view.dart';
-import 'package:dishcovery/db/allergen_database.dart';
-import 'package:dishcovery/screens/edit_allergens_page.dart';
+import 'screens/barcode/barcode_scanner_page.dart';
+import 'screens/favorites/favorites_view.dart';
+import 'db/allergen_database.dart';
+import 'screens/settings/edit_allergens_page.dart';
 import 'package:flutter/material.dart';
 
 // landing screens
@@ -11,18 +9,15 @@ import 'screens/landing/landing_view.dart';
 import 'screens/landing/about_view.dart';
 
 // home view
-import 'screens/home_view.dart';
+import 'screens/home/home_view.dart';
 
 // auth screens
 import 'screens/auth/login_view.dart';
 import 'screens/auth/signup_view.dart';
-//profile view
 
-// resturant view
-import 'screens/restaurant_view.dart';
-import 'screens/settings_view.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
+// restaurant view
+import 'screens/home/restaurant_view.dart';
+import 'screens/settings/settings_view.dart';
 
 AllergenDatabase db = AllergenDatabase();
 
@@ -40,29 +35,20 @@ class App {
       case '/signup':
         return MaterialPageRoute(builder: (_) => const SignupView());
       case '/home':
-  if (FirebaseAuth.instance.currentUser == null) {
-    return MaterialPageRoute(builder: (_) => const LoginView());
-  }
-  return MaterialPageRoute(builder: (_) => HomeView(db: db));
+        return MaterialPageRoute(builder: (_) => HomeView(db: db));
       case '/favorites':
-        return MaterialPageRoute(builder: (_) => const FavoritesView());
+        return MaterialPageRoute(builder: (_) => FavoritesView());
       case '/restaurants':
         return MaterialPageRoute(builder: (_) => const RestaurantView());
 
       case '/settings':
-        return MaterialPageRoute(builder: (_) =>  SettingsView(db: db));
+        return MaterialPageRoute(builder: (_) => SettingsView(db: db));
 
       case '/allergens':
         return MaterialPageRoute(builder: (_) => EditAllergensPage(db: db));
 
       case '/scan':
         return MaterialPageRoute(builder: (_) => BarcodeScannerPage(db: db));
-        case '/profile':
-  if (FirebaseAuth.instance.currentUser == null) {
-    return MaterialPageRoute(builder: (_) => const LoginView());
-  }
-  return MaterialPageRoute(builder: (_) => const ProfileView());
-
 
       // catches unknown routes
       default:

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/restaurant.dart';
+import '../../models/restaurant.dart';
 
 /// This class implements a Draggable Restaurant. Used to easily add
 /// restaurants to and remove from favorites list, if wanting to do

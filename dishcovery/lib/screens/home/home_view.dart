@@ -1,15 +1,15 @@
 import 'package:dishcovery/db/allergen_database.dart';
 import 'package:flutter/material.dart';
-import '../services/firebase_auth_service.dart';
-import '../config/mock_data.dart';
-import '../config/irl_mock_data.dart';
-import '../models/restaurant.dart';
-import '../utils/favorites_manager.dart';
-import 'dish_view.dart';
-import 'favorites_view.dart';
-import 'settings_view.dart';
-import 'barcode_scanner_page.dart';
-import 'draggable_favorite_restaurant_card.dart';
+import '../../services/firebase_auth_service.dart';
+import '../../config/mock_data.dart';
+import '../../config/irl_mock_data.dart';
+import '../../models/restaurant.dart';
+import '../../utils/favorites_manager.dart';
+import '../home/dish_view.dart';
+import '../favorites/favorites_view.dart';
+import '../settings/settings_view.dart';
+import '../barcode/barcode_scanner_page.dart';
+import '../favorites/draggable_favorite_restaurant_card.dart';
 
 // The Homeview class displays a tabbed interface for browsing restaurants, managing favorites,
 // editing settings, and scanning barcodes. It handles navigation between tabs and loading restaurant
@@ -219,28 +219,24 @@ class _HomeViewState extends State<HomeView> {
     ];
     return Scaffold(
       appBar: AppBar(
-  automaticallyImplyLeading: false,
-  title: const Text('Dishcovery'),
-  actions: [
-    IconButton(
-      icon: const Icon(Icons.logout),
-      tooltip: 'Sign out',
-      onPressed: () async {
-        // 1. Sign out from Firebase
-        await FirebaseAuthService().signOut();
+        automaticallyImplyLeading: false,
+        title: const Text('Dishcovery'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            tooltip: 'Sign out',
+            onPressed: () async {
+              // signs out from Firebase
+              await FirebaseAuthService().signOut();
 
-        // 2. Go back to login and clear history
-        if (!context.mounted) return;
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          '/login',
-          (route) => false,
-        );
-      },
-    ),
-  ],
-),
-      
+              // navigate to landing page
+              if (!context.mounted) return;
+              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+            },
+          ),
+        ],
+      ),
+
       body: SafeArea(child: tabs[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,

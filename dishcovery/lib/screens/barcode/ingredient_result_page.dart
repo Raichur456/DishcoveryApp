@@ -1,6 +1,6 @@
 import 'package:dishcovery/db/allergen_database.dart';
 import 'package:flutter/material.dart';
-import '../providers/food_api.dart';
+import '../../providers/food_api.dart';
 
 class IngredientResultPage extends StatefulWidget {
   final String barcode;
@@ -27,7 +27,7 @@ class _IngredientResultPageState extends State<IngredientResultPage> {
 
   Future<_IngredientAndAllergenData> _loadData() async {
     final ingredientsText = await FoodApi.fetchIngredients(widget.barcode);
-    final userAllergens = await widget.db.getAllergens(); 
+    final userAllergens = await widget.db.getAllergens();
 
     final list = ingredientsText == null
         ? <String>[]
@@ -61,6 +61,13 @@ class _IngredientResultPageState extends State<IngredientResultPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Ingredients for ${widget.barcode}'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          tooltip: 'Back to Landing',
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+          },
+        ),
       ),
       body: FutureBuilder<_IngredientAndAllergenData>(
         future: _futureData,
@@ -91,12 +98,11 @@ class _IngredientResultPageState extends State<IngredientResultPage> {
               // Safe/ Unsafe
               Container(
                 padding: const EdgeInsets.all(16),
-                color:
-                    offending.isNotEmpty ? Colors.red[700] : Colors.green[700],
+                color: offending.isNotEmpty
+                    ? Colors.red[700]
+                    : Colors.green[700],
                 child: Text(
-                  offending.isNotEmpty
-                      ? 'NOT SAFE FOR YOU'
-                      : 'SAFE FOR YOU',
+                  offending.isNotEmpty ? 'NOT SAFE FOR YOU' : 'SAFE FOR YOU',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.white,
@@ -132,8 +138,10 @@ class _IngredientResultPageState extends State<IngredientResultPage> {
                     itemCount: ingredients.length,
                     itemBuilder: (context, index) {
                       final ingredient = ingredients[index];
-                      final unsafe =
-                          _ingredientHasAllergen(ingredient, allergens);
+                      final unsafe = _ingredientHasAllergen(
+                        ingredient,
+                        allergens,
+                      );
 
                       return Card(
                         color: unsafe ? Colors.red[50] : Colors.green[50],
@@ -141,8 +149,7 @@ class _IngredientResultPageState extends State<IngredientResultPage> {
                           title: Text(
                             ingredient,
                             style: TextStyle(
-                              color:
-                                  unsafe ? Colors.red : Colors.green,
+                              color: unsafe ? Colors.red : Colors.green,
                               fontWeight: unsafe
                                   ? FontWeight.bold
                                   : FontWeight.normal,
@@ -150,8 +157,10 @@ class _IngredientResultPageState extends State<IngredientResultPage> {
                           ),
                           trailing: unsafe
                               ? const Icon(Icons.error, color: Colors.red)
-                              : const Icon(Icons.check_circle,
-                                  color: Colors.green),
+                              : const Icon(
+                                  Icons.check_circle,
+                                  color: Colors.green,
+                                ),
                         ),
                       );
                     },
@@ -166,7 +175,7 @@ class _IngredientResultPageState extends State<IngredientResultPage> {
   }
 }
 
-/// Turns the JSON string of ingredients found from scanning the item 
+/// Turns the JSON string of ingredients found from scanning the item
 /// into a list of strings
 List<String> _parseIngredients(String ingredientsText) {
   return ingredientsText
@@ -176,8 +185,8 @@ List<String> _parseIngredients(String ingredientsText) {
       .toList();
 }
 
-/// Made a map. I kept failing testing cans of tuna because it doesn't have the 
-/// ingredient "fish" in it, so mapping a name to different potential string values 
+/// Made a map. I kept failing testing cans of tuna because it doesn't have the
+/// ingredient "fish" in it, so mapping a name to different potential string values
 /// seemed to be helpful
 const Map<String, List<String>> allergenKeywordMap = {
   'milk': ['milk', 'lactose', 'casein', 'whey'],
@@ -195,13 +204,7 @@ const Map<String, List<String>> allergenKeywordMap = {
     'pine nut',
     'chestnut',
   ],
-  'gluten': [
-    'wheat',
-    'barley',
-    'rye',
-    'malt',
-    'spelt',
-  ],
+  'gluten': ['wheat', 'barley', 'rye', 'malt', 'spelt'],
   'soy': ['soy', 'soya', 'soybean'],
   'sesame': ['sesame'],
   'fish': ['tuna', 'salmon'],

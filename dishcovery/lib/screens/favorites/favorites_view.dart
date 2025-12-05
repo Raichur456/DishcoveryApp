@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/restaurant.dart';
-import '../utils/favorites_manager.dart';
-import 'dish_view.dart';
+import '../../models/restaurant.dart';
+import '../../utils/favorites_manager.dart';
+import '../home/dish_view.dart';
 
 // The FavoritesView class displays the user's favorite restaurants and implements undo and
 // redo functionality for changes made to the favorites list
@@ -57,6 +57,13 @@ class _FavoritesViewState extends State<FavoritesView> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text('Favorite Restaurants'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          tooltip: 'Back to Landing',
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+          },
+        ),
         actions: [
           // undo and redo buttons
           IconButton(

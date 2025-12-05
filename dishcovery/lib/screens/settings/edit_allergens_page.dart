@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../db/allergen_database.dart';
+import '../../db/allergen_database.dart';
 
 // The EditAllergensPage class allows users to select and save their allergens in the database
 class EditAllergensPage extends StatefulWidget {
@@ -13,55 +13,62 @@ class EditAllergensPage extends StatefulWidget {
   State<EditAllergensPage> createState() => _EditAllergensPageState();
 }
 
-
-/// Private state class for EditAllergensPage.
-///
-/// Handles loading and saving of user allergen selections, manages UI state for loading and saving,
-/// and updates the database when the user changes their selections.
+// The _EditAllergensPageState class manages the state of the EditAllergensPage
 class _EditAllergensPageState extends State<EditAllergensPage> {
-  // List of allergen options to display as checkboxes.
+  // list of allergen options to display
   static const List<String> _options = [
-    'milk', 'egg', 'fish', 'shellfish', 'tree nut', 'peanut', 'wheat', 'gluten', 'soy', 'sesame',
+    'milk',
+    'egg',
+    'fish',
+    'shellfish',
+    'tree nut',
+    'peanut',
+    'wheat',
+    'gluten',
+    'soy',
+    'sesame',
   ];
 
-  // Set of currently selected allergens.
+  // set of selected allergens.
   final Set<String> _selected = {};
-  // True if allergens are loading from the database.
+  // true if allergens are loading from the database.
   bool _loading = true;
-  // True if allergens are being saved to the database.
+  // true if allergens are being saved.
   bool _saving = false;
 
-  // Loads the user's allergens from the database when the widget is initialized.
+  // Behavior: loads the user's allergens from the database on init
   @override
   void initState() {
     super.initState();
-    _load(); // Begin loading allergens
+    _load();
   }
 
-  // Loads allergens from the database and updates the state.
+  // Behavior: loads allergens from the database and updates state
   Future<void> _load() async {
     try {
-      final saved = await widget.db.getAllergens(); // Fetch saved allergens
+      final saved = await widget.db.getAllergens();
       if (!mounted) return;
       setState(() {
-        _selected..clear()..addAll(saved); // Update selected set
-        _loading = false; // Done loading
+        _selected
+          ..clear()
+          ..addAll(saved);
+        _loading = false;
       });
     } catch (e, st) {
-      debugPrint('Error loading allergens: $e\n$st'); // Log error
+      debugPrint('Error loading allergens: $e\n$st');
       if (!mounted) return;
       setState(() {
-        _loading = false; // Done loading even if error
+        _loading = false;
       });
     }
   }
 
-  // Saves selected allergens to the database and shows a confirmation snackbar.
+  // Behavior: saves selected allergens to the database and shows a confirmation
   Future<void> _save() async {
-    setState(() => _saving = true); // Indicate saving in progress
-    await widget.db.setAllergens(_selected.toList()); // Save to database
+    setState(() => _saving = true);
+    await widget.db.setAllergens(_selected.toList());
     if (!mounted) return;
-    setState(() => _saving = false); // Done saving
+    setState(() => _saving = false);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Allergens saved'),
@@ -73,7 +80,6 @@ class _EditAllergensPageState extends State<EditAllergensPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Show loading indicator while allergens are being loaded
     if (_loading) {
       return Scaffold(
         appBar: AppBar(title: const Text('Edit allergens')),
@@ -81,7 +87,6 @@ class _EditAllergensPageState extends State<EditAllergensPage> {
       );
     }
 
-    // Main scaffold for editing allergens
     return Scaffold(
       appBar: AppBar(title: const Text('Edit allergens')),
       body: Column(
@@ -96,16 +101,16 @@ class _EditAllergensPageState extends State<EditAllergensPage> {
           Expanded(
             child: ListView(
               children: _options.map((a) {
-                final checked = _selected.contains(a); // Is this allergen selected?
+                final checked = _selected.contains(a);
                 return CheckboxListTile(
                   title: Text(a),
                   value: checked,
                   onChanged: (value) {
                     setState(() {
                       if (value == true) {
-                        _selected.add(a); // Add allergen to selection
+                        _selected.add(a);
                       } else {
-                        _selected.remove(a); // Remove allergen from selection
+                        _selected.remove(a);
                       }
                     });
                   },
@@ -118,14 +123,14 @@ class _EditAllergensPageState extends State<EditAllergensPage> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: _saving ? null : _save, // Disable button if saving
+                onPressed: _saving ? null : _save,
                 child: _saving
                     ? const SizedBox(
                         height: 18,
                         width: 18,
-                        child: CircularProgressIndicator(strokeWidth: 2), // Show spinner if saving
+                        child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Save'), // Otherwise show Save text
+                    : const Text('Save'),
               ),
             ),
           ),

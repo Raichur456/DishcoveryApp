@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/restaurant.dart';
-import '../models/dish.dart';
+import '../../models/restaurant.dart';
+import '../../models/dish.dart';
 
 // The DishView class displays a list of dishes for a given restaurant, including allergen and
 // safety info

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../config/mock_data.dart';
-import '../models/restaurant.dart';
-import '../utils/favorites_manager.dart';
-import 'dish_view.dart';
+import '../../config/mock_data.dart';
+import '../../models/restaurant.dart';
+import '../../utils/favorites_manager.dart';
+import '../home/dish_view.dart';
 
 // The RestaurantView class provides a scrollable list of restaurants
 class RestaurantView extends StatefulWidget {

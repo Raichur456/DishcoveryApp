@@ -1,5 +1,5 @@
 import 'package:dishcovery/db/allergen_database.dart';
-import 'package:dishcovery/screens/edit_allergens_page.dart';
+import 'package:dishcovery/screens/settings/edit_allergens_page.dart';
 import 'package:flutter/material.dart';
 
 import 'profile_view.dart';
@@ -78,6 +78,13 @@ class SettingsView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Settings'),
         automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          tooltip: 'Back to Landing',
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+          },
+        ),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {

@@ -76,8 +76,8 @@ class _SignupViewState extends State<SignupView> {
 
       if (!mounted) return;
 
-      // redirects to Profile screen
-      Navigator.pushReplacementNamed(context, '/profile');
+      // redirects to HomeView
+      Navigator.pushReplacementNamed(context, '/home');
     } on FirebaseAuthException catch (e) {
       setState(() {
         _error = e.message;
