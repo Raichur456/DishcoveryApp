@@ -9,7 +9,7 @@ import '../models/dish.dart'; // Dish model
 class YelpService {
   static const String _baseUrl = 'https://api.yelp.com/v3'; // Yelp API base URL
   static const String _apiKey =
-      '6coyp3JN9haEf0uunBnuud8HDvEwMYZpGDQH5JT3YyotYm-KLeach-IvXUszyhgsd2XeLCnpJjHw-WL8jUXIR7yVoAnGVV0E11q2TVTAx_gOE0DS9Y6q6LWmt3oraXYx'; // Your API key
+      ''; // Your API key
 
   /// Fetch restaurants in Seattle.
   /// [term] is an optional search keyword (e.g. "thai", "pizza").
