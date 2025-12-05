@@ -8,25 +8,20 @@ class BarcodeScannerPage extends StatefulWidget {
   // database used to check allergens for scanned products
   final AllergenDatabase db;
 
-  // Behavior: Constructs the barcode scanner page widget.
+  // Behavior: constructs the barcode scanner page widget.
   const BarcodeScannerPage({super.key, required this.db});
 
   @override
   State<BarcodeScannerPage> createState() => _BarcodeScannerPageState();
 }
 
-
-/// Private state class for BarcodeScannerPage.
-///
-/// Handles barcode scanning logic, manages scanned state to prevent duplicate scans,
-/// and navigates to the ingredient result page when a barcode is detected.
+// The _BarcodeScannerPageState class manages the state of the BarcodeScannerPage
 class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
-  // True if a barcode has been scanned and result is being shown.
+  // true if a barcode has been scanned and result is being shown
   bool _scanned = false;
 
   @override
   Widget build(BuildContext context) {
-    // Main scaffold for the barcode scanner screen
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -34,18 +29,17 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
       ),
       body: MobileScanner(
         onDetect: (capture) {
-          // Prevent duplicate scans while result is being shown
           if (_scanned) return;
           final barcode = capture.barcodes.first.rawValue;
-          if (barcode == null) return; // Ignore if no barcode value
-          setState(() => _scanned = true); // Mark as scanned
+          if (barcode == null) return;
+          setState(() => _scanned = true);
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => IngredientResultPage(barcode: barcode, db: widget.db),
+              builder: (_) =>
+                  IngredientResultPage(barcode: barcode, db: widget.db),
             ),
           ).then((_) {
-            // Reset scanned state when returning to scanner
             setState(() => _scanned = false);
           });
         },

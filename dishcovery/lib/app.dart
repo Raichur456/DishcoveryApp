@@ -3,25 +3,17 @@ import 'screens/favorites/favorites_view.dart';
 import 'db/allergen_database.dart';
 import 'screens/settings/edit_allergens_page.dart';
 import 'package:flutter/material.dart';
-
-// landing screens
 import 'screens/landing/landing_view.dart';
 import 'screens/landing/about_view.dart';
-
-// home view
 import 'screens/home/home_view.dart';
-
-// auth screens
 import 'screens/auth/login_view.dart';
 import 'screens/auth/signup_view.dart';
-
-// restaurant view
 import 'screens/home/restaurant_view.dart';
 import 'screens/settings/settings_view.dart';
 
 AllergenDatabase db = AllergenDatabase();
 
-/// handles navigation for the application
+// The App class manages route generation for dishcovery
 class App {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {

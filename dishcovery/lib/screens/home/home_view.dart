@@ -15,10 +15,10 @@ import '../favorites/draggable_favorite_restaurant_card.dart';
 // editing settings, and scanning barcodes. It handles navigation between tabs and loading restaurant
 // data from mock/live sources
 class HomeView extends StatefulWidget {
-  // database used for user allergen and favorites persistence.
+  // database used for user allergen and favorites persistence
   final AllergenDatabase db;
 
-  // constructs the home view widget.
+  // constructs the home view widget
   const HomeView({super.key, required this.db});
 
   @override
@@ -27,18 +27,18 @@ class HomeView extends StatefulWidget {
 
 // The _HomeViewState class manages the state of the HomeView
 class _HomeViewState extends State<HomeView> {
-  // index of the currently selected tab.
+  // index of the currently selected tab
   int _selectedIndex = 0;
-  // current search term for filtering restaurants.
+  // current search term for filtering restaurants
   String _search = '';
-  // true if sorting A-Z, false for Z-A.
+  // true if sorting A-Z, false for Z-A
   bool _sortAsc = true;
 
-  // true if restaurant data is loading.
+  // true if restaurant data is loading
   bool _loading = true;
-  // error message if restaurant loading fails.
+  // error message if restaurant loading fails
   String? _error;
-  // list of restaurants to display.
+  // list of restaurants to display
   List<Restaurant> _restaurants = [];
 
   @override

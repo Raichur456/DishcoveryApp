@@ -11,7 +11,7 @@ class SettingsView extends StatelessWidget {
   // The database used for user allergen persistence
   final AllergenDatabase db;
 
-  // constructs the settings view widget
+  // Behavior:constructs the settings view widget
   const SettingsView({super.key, required this.db});
 
   // signs out the user and navigates to the landing page

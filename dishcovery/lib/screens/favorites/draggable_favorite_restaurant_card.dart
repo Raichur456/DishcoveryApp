@@ -5,16 +5,16 @@ import '../../models/restaurant.dart';
 /// restaurants to and remove from favorites list, if wanting to do
 /// many at a time.
 class DraggableFavoriteRestaurantCard extends StatefulWidget {
-  // The restaurant being represented
+  // the restaurant being represented
   final Restaurant restaurant;
 
-  // Whether or not the restaurant is favorited
+  // whether or not the restaurant is favorited
   final bool isFavorite;
 
-  // What should happen if favorite is toggled (does the opposite of current state)
+  // what should happen if favorite is toggled (does the opposite of current state)
   final VoidCallback onToggleFavorite;
 
-  // What should happen on tap
+  // what should happen on tap
   final VoidCallback onTap;
 
   const DraggableFavoriteRestaurantCard({

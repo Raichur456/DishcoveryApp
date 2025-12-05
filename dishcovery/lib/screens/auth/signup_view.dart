@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 // The SignupView class displays a registration form for new users and manages navigation
 // on a sucessful signup
 class SignupView extends StatefulWidget {
+  // Behavior: constructs the signup view widget
   const SignupView({super.key});
 
   @override
