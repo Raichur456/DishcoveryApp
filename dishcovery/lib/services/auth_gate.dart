@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:dishcovery/db/allergen_database.dart';
-import 'package:dishcovery/screens/home_view.dart';
+import 'package:dishcovery/screens/home/home_view.dart';
 import 'package:dishcovery/screens/auth/login_view.dart';
 
 class AuthGate extends StatelessWidget {
