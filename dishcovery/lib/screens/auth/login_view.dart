@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
 import '../../services/firebase_auth_service.dart';
 
+// The LoginView class is responsible for displaying a login form for existing users
 class LoginView extends StatefulWidget {
+  // Behavior: constructs the login view widget
   const LoginView({super.key});
 
   @override
   State<LoginView> createState() => _LoginViewState();
 }
 
+// The _LoginViewState class manages the state and logic for the LoginView
 class _LoginViewState extends State<LoginView> {
+  // stores the user's email
   final _email = TextEditingController();
+
+  // stores the user's password
   final _password = TextEditingController();
+
+  // key for validating the login form
   final _formKey = GlobalKey<FormState>();
+
+  // true if login attempt is in progress
   bool _loading = false;
+
+  // holds any error message to display to the user
   String? _error;
 
   final _authService = FirebaseAuthService();
@@ -108,8 +120,7 @@ class _LoginViewState extends State<LoginView> {
                       : const Text('Sign In'),
                 ),
                 TextButton(
-                  onPressed: () =>
-                      Navigator.pushNamed(context, '/signup'),
+                  onPressed: () => Navigator.pushNamed(context, '/signup'),
                   child: const Text('Create account'),
                 ),
               ],

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../../services/firebase_auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+// The SignupView class displays a registration form for new users and manages navigation
+// on a sucessful signup
 class SignupView extends StatefulWidget {
   const SignupView({super.key});
 
@@ -9,19 +11,34 @@ class SignupView extends StatefulWidget {
   State<SignupView> createState() => _SignupViewState();
 }
 
+// The _SignupViewState class manages the state, validation, registration logic, and navigation
+// for SignupView
 class _SignupViewState extends State<SignupView> {
+  // key for validating the signup form
   final _formKey = GlobalKey<FormState>();
 
+  // stores the user's full name input
   final _nameController = TextEditingController();
+
+  // stores the user's email input
   final _emailController = TextEditingController();
+
+  // stores the user's password input
   final _passwordController = TextEditingController();
+
+  // stores the user's password confirmation input
   final _confirmController = TextEditingController();
 
+  // true if a signup attempt is in progress
   bool _loading = false;
+
+  // holds any error message to display to the user
   String? _error;
 
+  // provides Firebase authentication methods
   final _authService = FirebaseAuthService();
 
+  // Behavior: Disposes of all text controllers when the widget is removed from the widget tree
   @override
   void dispose() {
     _nameController.dispose();
@@ -31,6 +48,8 @@ class _SignupViewState extends State<SignupView> {
     super.dispose();
   }
 
+  // Behavior: validates the form, registers the user with Firebase, updates the display name, and
+  // navigates to profile on success
   Future<void> _register() async {
     final form = _formKey.currentState;
     if (form == null || !form.validate()) return;
@@ -45,10 +64,10 @@ class _SignupViewState extends State<SignupView> {
       final password = _passwordController.text.trim();
       final name = _nameController.text.trim();
 
-      // 1. Create the user
+      // create the users
       User? user = await _authService.register(email, password);
 
-      // 2. Save name to Firebase profile
+      // saves name to Firebase profile
       if (user != null) {
         await user.updateDisplayName(name);
         await user.reload();
@@ -57,9 +76,8 @@ class _SignupViewState extends State<SignupView> {
 
       if (!mounted) return;
 
-      // 3. Redirect to Profile screen
+      // redirects to Profile screen
       Navigator.pushReplacementNamed(context, '/profile');
-
     } on FirebaseAuthException catch (e) {
       setState(() {
         _error = e.message;
@@ -87,7 +105,7 @@ class _SignupViewState extends State<SignupView> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // FULL NAME
+                // name
                 TextFormField(
                   controller: _nameController,
                   decoration: const InputDecoration(labelText: 'Full Name'),
@@ -100,7 +118,7 @@ class _SignupViewState extends State<SignupView> {
                 ),
                 const SizedBox(height: 12),
 
-                // EMAIL
+                // email
                 TextFormField(
                   controller: _emailController,
                   decoration: const InputDecoration(labelText: 'Email'),
@@ -117,7 +135,7 @@ class _SignupViewState extends State<SignupView> {
                 ),
                 const SizedBox(height: 12),
 
-                // PASSWORD
+                // password
                 TextFormField(
                   controller: _passwordController,
                   obscureText: true,
@@ -131,11 +149,13 @@ class _SignupViewState extends State<SignupView> {
                 ),
                 const SizedBox(height: 12),
 
-                // CONFIRM PASSWORD
+                // confirm password
                 TextFormField(
                   controller: _confirmController,
                   obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Confirm Password'),
+                  decoration: const InputDecoration(
+                    labelText: 'Confirm Password',
+                  ),
                   validator: (v) {
                     if (v != _passwordController.text) {
                       return 'Passwords do not match';
@@ -154,7 +174,7 @@ class _SignupViewState extends State<SignupView> {
 
                 const SizedBox(height: 20),
 
-                // SIGN UP BUTTON
+                // sign up button
                 ElevatedButton(
                   onPressed: _loading ? null : _register,
                   child: _loading
@@ -166,12 +186,12 @@ class _SignupViewState extends State<SignupView> {
                       : const Text('Create Account'),
                 ),
 
-                // BACK TO LOGIN
+                // back to login button
                 TextButton(
                   onPressed: () =>
                       Navigator.pushReplacementNamed(context, '/login'),
                   child: const Text('Back to Login'),
-                )
+                ),
               ],
             ),
           ),

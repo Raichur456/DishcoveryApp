@@ -1,33 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+// The PasswordView class allows the user to change their account password in a safe and secure
+// manner
 class PasswordView extends StatefulWidget {
+  // constructs the password view widget.
   const PasswordView({super.key});
 
   @override
   State<PasswordView> createState() => _PasswordViewState();
 }
 
+// The _PasswordViewState class manages the state of the PasswordView
 class _PasswordViewState extends State<PasswordView> {
+  // key for the password form
   final _formKey = GlobalKey<FormState>();
+  // controller for current password field
   final _currentController = TextEditingController();
+  // controller for new password field
   final _newController = TextEditingController();
+  // controller for confirm password field
   final _confirmController = TextEditingController();
 
+  // true if password update is in progress
   bool _loading = false;
+  // error message to display if password update fails
   String? _error;
 
   @override
   void dispose() {
+    // dispose controllers to free resources
     _currentController.dispose();
     _newController.dispose();
     _confirmController.dispose();
     super.dispose();
   }
 
+  // updates the user's password in Firebase after validating the form
   Future<void> _updatePassword() async {
     final form = _formKey.currentState;
-if (form == null || !form.validate()) return;
+    if (form == null || !form.validate()) return;
 
     setState(() {
       _loading = true;
@@ -55,14 +67,14 @@ if (form == null || !form.validate()) return;
       final currentPassword = _currentController.text.trim();
       final newPassword = _newController.text.trim();
 
-      // Re-authenticate using the current password
+      // re-authenticate using the current password
       final cred = EmailAuthProvider.credential(
         email: email,
         password: currentPassword,
       );
       await user.reauthenticateWithCredential(cred);
 
-      //  Update password in Firebase
+      // update password in Firebase
       await user.updatePassword(newPassword);
 
       if (!mounted) return;
@@ -70,7 +82,8 @@ if (form == null || !form.validate()) return;
         const SnackBar(content: Text('Password updated successfully')),
       );
 
-      Navigator.pop(context); // go back to settings/profile
+      // navigates back to the previous screen
+      Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       String msg = 'Failed to update password.';
       if (e.code == 'wrong-password') {
@@ -99,6 +112,7 @@ if (form == null || !form.validate()) return;
 
   @override
   Widget build(BuildContext context) {
+    // main scaffold for password change screen
     return Scaffold(
       appBar: AppBar(title: const Text('Change Password')),
       body: SingleChildScrollView(
@@ -115,13 +129,11 @@ if (form == null || !form.validate()) return;
               const SizedBox(height: 24),
 
               if (_error != null) ...[
-                Text(
-                  _error!,
-                  style: const TextStyle(color: Colors.red),
-                ),
+                Text(_error!, style: const TextStyle(color: Colors.red)),
                 const SizedBox(height: 16),
               ],
 
+              // current password
               TextFormField(
                 controller: _currentController,
                 decoration: const InputDecoration(
@@ -138,6 +150,7 @@ if (form == null || !form.validate()) return;
               ),
               const SizedBox(height: 16),
 
+              // new password
               TextFormField(
                 controller: _newController,
                 decoration: const InputDecoration(
@@ -154,6 +167,7 @@ if (form == null || !form.validate()) return;
               ),
               const SizedBox(height: 16),
 
+              // confirm new password
               TextFormField(
                 controller: _confirmController,
                 decoration: const InputDecoration(
@@ -170,6 +184,7 @@ if (form == null || !form.validate()) return;
               ),
               const SizedBox(height: 24),
 
+              // update password button
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(

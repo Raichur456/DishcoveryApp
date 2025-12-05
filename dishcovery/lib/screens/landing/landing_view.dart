@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+// The LandingView class displays the app's landing page with navigation to login, signup, and
+// about screens
 class LandingView extends StatelessWidget {
+  // Behavior: constructs the landing view widget
   const LandingView({super.key});
 
   @override
@@ -20,7 +23,7 @@ class LandingView extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              /// welcome message
+              // welcome message
               const Text(
                 'Dishcovery helps you explore and share amazing recipes from around the world!',
                 textAlign: TextAlign.center,
@@ -29,7 +32,7 @@ class LandingView extends StatelessWidget {
 
               const SizedBox(height: 40),
 
-              /// login button
+              // login button
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -40,7 +43,7 @@ class LandingView extends StatelessWidget {
 
               const SizedBox(height: 12),
 
-              /// signup button
+              // signup button
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -49,41 +52,9 @@ class LandingView extends StatelessWidget {
                 ),
               ),
 
-              // const SizedBox(height: 24),
-
-              // SizedBox(
-              //   width: double.infinity,
-              //   child: ElevatedButton(
-              //     onPressed: () => Navigator.pushNamed(context, '/allergens'),
-              //     child: const Text('Edit Allergens'),
-              //   ),
-              // ),
-
-              // const SizedBox(height: 24),
-
-              // SizedBox(
-              //   width: double.infinity,
-              //   child: ElevatedButton(
-              //     onPressed: () => Navigator.pushNamed(context, '/scan'),
-              //     child: const Text('Scan Product'),
-              //   ),
-              // ),
-              // const SizedBox(height: 24),
-
-              // // temporary debug button to quickly open HomeView during development
-              // SizedBox(
-              //   width: double.infinity,
-              //   child: ElevatedButton(
-              //     style: ElevatedButton.styleFrom(
-              //       backgroundColor: Colors.green,
-              //     ),
-              //     onPressed: () => Navigator.pushNamed(context, '/home'),
-              //     child: const Text('Open Home View (temporary)'),
-              //   ),
-              // ),
               const SizedBox(height: 24),
 
-              /// about us button
+              // about us button
               TextButton(
                 onPressed: () => Navigator.pushNamed(context, '/about'),
                 child: const Text('About Us'),

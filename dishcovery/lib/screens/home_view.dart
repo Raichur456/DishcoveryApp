@@ -11,29 +11,44 @@ import 'settings_view.dart';
 import 'barcode_scanner_page.dart';
 import 'draggable_favorite_restaurant_card.dart';
 
+// The Homeview class displays a tabbed interface for browsing restaurants, managing favorites,
+// editing settings, and scanning barcodes. It handles navigation between tabs and loading restaurant
+// data from mock/live sources
 class HomeView extends StatefulWidget {
+  // database used for user allergen and favorites persistence.
   final AllergenDatabase db;
+
+  // constructs the home view widget.
   const HomeView({super.key, required this.db});
 
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
+// The _HomeViewState class manages the state of the HomeView
 class _HomeViewState extends State<HomeView> {
+  // index of the currently selected tab.
   int _selectedIndex = 0;
+  // current search term for filtering restaurants.
   String _search = '';
+  // true if sorting A-Z, false for Z-A.
   bool _sortAsc = true;
 
+  // true if restaurant data is loading.
   bool _loading = true;
+  // error message if restaurant loading fails.
   String? _error;
+  // list of restaurants to display.
   List<Restaurant> _restaurants = [];
 
   @override
   void initState() {
     super.initState();
-    _loadRestaurants(); // initial load for Seattle
+    _loadRestaurants();
   }
 
+  // loads restaurants from mock/live data and initializes FavoritesManager
+  // updates UI state for loading and error
   Future<void> _loadRestaurants({String term = ''}) async {
     setState(() {
       _loading = true;
@@ -44,16 +59,17 @@ class _HomeViewState extends State<HomeView> {
     String? error;
 
     try {
+      // attempts to load live Seattle restaurants (commented out for mock)
       // results = await YelpService.searchRestaurantsInSeattle(term: term.trim());
       results = irlMockRestaurants;
     } catch (e) {
-      // Mock data if live API fails
+      // uses mock data if live API fails
       results = mockRestaurants;
       error =
           'Could not load live Seattle restaurants. Showing sample data instead.';
     }
 
-    // FavoritesManager loaded with restaurants saved in DB through favorites
+    // initializes FavoritesManager with restaurants and database
     await FavoritesManager.instance.init(
       db: widget.db,
       allRestaurants: results,
@@ -68,16 +84,21 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
+  // Behavior: builds the home tab UI for browsing and searching restaurants
+  // Returns: the home tab widget
   Widget _buildHomeTab() {
+    // filters restaurants by search term
     List<Restaurant> filtered = _restaurants
         .where((r) => r.name.toLowerCase().contains(_search.toLowerCase()))
         .toList();
 
+    // sorts restaurants by name
     filtered.sort(
       (a, b) => _sortAsc ? a.name.compareTo(b.name) : b.name.compareTo(a.name),
     );
 
     if (_loading) {
+      // shows loading indicator while fetching data
       return const Center(child: CircularProgressIndicator());
     }
 
@@ -97,6 +118,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                   onChanged: (v) {
+                    // update search term and reload restaurants
                     setState(() => _search = v);
                     _loadRestaurants(term: v);
                   },
@@ -108,6 +130,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 tooltip: _sortAsc ? 'Sort A-Z' : 'Sort Z-A',
                 onPressed: () {
+                  // toggles sort order
                   setState(() => _sortAsc = !_sortAsc);
                 },
               ),
@@ -135,6 +158,7 @@ class _HomeViewState extends State<HomeView> {
                 restaurant,
               );
 
+              // card for each restaurant, supports drag-to-favorite and tap-to-view
               return DraggableFavoriteRestaurantCard(
                 restaurant: restaurant,
                 isFavorite: isFav,
@@ -154,6 +178,7 @@ class _HomeViewState extends State<HomeView> {
                       builder: (_) => DishView(restaurant: restaurant),
                     ),
                   ).then((_) {
+                    // refresh state on return
                     setState(() {});
                   });
                 },
@@ -165,20 +190,27 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
+  // Behavior: builds the favorites tab UI
+  // Returns: the favorites tab widget
   Widget _buildFavoritesTab() {
     return const FavoritesView();
   }
 
+  // Behavior: builds the settings tab UI
+  // Returns: the settings tab widget
   Widget _buildSettingsTab() {
     return SettingsView(db: widget.db);
   }
 
+  // Behavior: builds the barcode scanner tab UI
+  // Returns: the barcode scanner tab widget
   Widget _buildBarcodeTab() {
     return BarcodeScannerPage(db: widget.db);
   }
 
   @override
   Widget build(BuildContext context) {
+    // list of tab widgets for navigation
     List<Widget> tabs = [
       _buildHomeTab(),
       _buildFavoritesTab(),

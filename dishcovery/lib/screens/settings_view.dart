@@ -1,5 +1,4 @@
 import 'package:dishcovery/db/allergen_database.dart';
-//import 'package:dishcovery/screens/barcode_scanner_page.dart';
 import 'package:dishcovery/screens/edit_allergens_page.dart';
 import 'package:flutter/material.dart';
 
@@ -7,15 +6,20 @@ import 'profile_view.dart';
 import 'password_view.dart';
 import 'package:dishcovery/services/firebase_auth_service.dart';
 
+// The SettingsView class provides a user interface for managing application settings
 class SettingsView extends StatelessWidget {
+  // The database used for user allergen persistence
   final AllergenDatabase db;
+
+  // constructs the settings view widget
   const SettingsView({super.key, required this.db});
 
+  // signs out the user and navigates to the landing page
   Future<void> _signOut(BuildContext context) async {
     final auth = FirebaseAuthService();
     await auth.signOut();
 
-    // Clear navigation stack and go back to landing page
+    // clears navigation stack and goes back to the landing page
     if (context.mounted) {
       Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
     }
@@ -23,7 +27,9 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // list of settings options
     final options = <Widget>[
+      // profile option
       ListTile(
         leading: const Icon(Icons.person),
         title: const Text('Profile'),
@@ -35,6 +41,7 @@ class SettingsView extends StatelessWidget {
           );
         },
       ),
+      // change password option
       ListTile(
         leading: const Icon(Icons.lock),
         title: const Text('Change Password'),
@@ -45,6 +52,7 @@ class SettingsView extends StatelessWidget {
           );
         },
       ),
+      // manage allergens option
       ListTile(
         leading: const Icon(Icons.food_bank),
         title: const Text('Manage Allergens'),
@@ -56,20 +64,8 @@ class SettingsView extends StatelessWidget {
           );
         },
       ),
-      // ListTile(
-      //   leading: const Icon(Icons.qr_code_scanner),
-      //   title: const Text('Scan a Barcode'),
-      //   subtitle: const Text('Check if an item is safe for you'),
-      //   onTap: () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(
-      //         builder: (_) => BarcodeScannerPage(db: db),
-      //       ),
-      //     );
-      //   },
-      // ),
       const Divider(),
+      // sign out option
       ListTile(
         leading: const Icon(Icons.logout, color: Colors.red),
         title: const Text('Sign Out', style: TextStyle(color: Colors.red)),
@@ -77,6 +73,7 @@ class SettingsView extends StatelessWidget {
       ),
     ];
 
+    // main scaffold for settings screen
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -84,6 +81,7 @@ class SettingsView extends StatelessWidget {
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
+          // responsive layout for wide screens
           final list = ListView.separated(
             padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
             itemCount: options.length,

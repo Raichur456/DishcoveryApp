@@ -3,25 +3,34 @@ import '../models/restaurant.dart';
 import '../utils/favorites_manager.dart';
 import 'dish_view.dart';
 
+// The FavoritesView class displays the user's favorite restaurants and implements undo and
+// redo functionality for changes made to the favorites list
 class FavoritesView extends StatefulWidget {
+  // Behavior: constructs the favorites view widget
   const FavoritesView({super.key});
 
   @override
   State<FavoritesView> createState() => _FavoritesViewState();
 }
 
+// The _FavoritesViewState class manages the state of the FavoritesView
 class _FavoritesViewState extends State<FavoritesView> {
+  // list of favorite restaurants from the manager.
   List<Restaurant> get _favoriteRestaurants =>
       FavoritesManager.instance.favorites;
 
+  // undo stack for favorites changes
   final List<List<Restaurant>> _undoStack = [];
+  // redo stack for favorites changes
   final List<List<Restaurant>> _redoStack = [];
 
+  // Behavior: saves the current state for undo
   void _saveStateForUndo() {
     _undoStack.add(List<Restaurant>.from(_favoriteRestaurants));
     _redoStack.clear();
   }
 
+  // Behavior: undoes the last change to favorites
   void _undo() {
     if (_undoStack.isNotEmpty) {
       _redoStack.add(List<Restaurant>.from(_favoriteRestaurants));
@@ -31,6 +40,7 @@ class _FavoritesViewState extends State<FavoritesView> {
     }
   }
 
+  // Behavior: redoes the last undone change to favorites
   void _redo() {
     if (_redoStack.isNotEmpty) {
       _undoStack.add(List<Restaurant>.from(_favoriteRestaurants));
@@ -48,6 +58,7 @@ class _FavoritesViewState extends State<FavoritesView> {
         centerTitle: true,
         title: const Text('Favorite Restaurants'),
         actions: [
+          // undo and redo buttons
           IconButton(
             icon: const Icon(Icons.undo),
             tooltip: 'Undo',
