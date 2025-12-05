@@ -174,7 +174,7 @@ class _IngredientResultPageState extends State<IngredientResultPage> {
                           title: Text(
                             ingredient,
                             style: TextStyle(
-                              color: unsafe ? Colors.red : Colors.green,
+                              color: Colors.black,
                               fontWeight: unsafe
                                   ? FontWeight.bold
                                   : FontWeight.normal,
